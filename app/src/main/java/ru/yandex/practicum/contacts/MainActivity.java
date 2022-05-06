@@ -9,7 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
+import ru.yandex.practicum.contacts.model.ContactType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,12 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
-        getWindow().getDecorView().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                binding.searchLayout.getRoot().setVisibility(View.VISIBLE);
-            }
-        }, 2000);
+        getWindow().getDecorView().postDelayed(() -> binding.searchLayout.getRoot().setVisibility(View.VISIBLE), 2000);
+
+        binding.contactTypeImageView.setData(Arrays.asList(ContactType.TELEGRAM, ContactType.WHATS_APP, ContactType.VIBER));
     }
 
     @Override

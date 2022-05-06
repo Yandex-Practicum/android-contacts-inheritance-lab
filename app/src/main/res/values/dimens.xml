@@ -1,3 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="stack_image_view_icon_border">2dp</dimen>
+    <dimen name="stack_image_view_icon_size">32dp</dimen>
+    <dimen name="stack_image_view_icon_offset">16dp</dimen>
 </resources>

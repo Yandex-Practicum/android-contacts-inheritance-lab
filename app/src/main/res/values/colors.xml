@@ -11,6 +11,6 @@
     <color name="color_white">#FFFFFF</color>
     <color name="color_primary">#005FFF</color>
     <color name="color_primary_dark">#004ECC</color>
-    <color name="color_grey">#AEAFB4</color>
     <color name="color_black">#1A1B22</color>
+    <color name="color_grey">#AEAFB4</color>
 </resources>
