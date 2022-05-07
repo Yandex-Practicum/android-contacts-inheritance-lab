@@ -28,11 +28,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ru.yandex.practicum.contacts.ui.widget.ContactTypeImageView
-        android:layout_marginTop="120dp"
-        android:id="@+id/contact_type_image_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        tools:layout_height="16dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

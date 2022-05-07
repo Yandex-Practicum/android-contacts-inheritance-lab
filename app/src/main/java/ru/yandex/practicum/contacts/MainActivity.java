@@ -9,11 +9,15 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
-import ru.yandex.practicum.contacts.model.ContactType;
+import ru.yandex.practicum.contacts.model.ContactSource;
+import ru.yandex.practicum.contacts.repository.ContactSourceRepository;
+import ru.yandex.practicum.contacts.tmp.ContactGeneratorKt;
+import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
+import ru.yandex.practicum.contacts.ui.model.Contact;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().getDecorView().postDelayed(() -> binding.searchLayout.getRoot().setVisibility(View.VISIBLE), 2000);
 
-        binding.contactTypeImageView.setData(Arrays.asList(ContactType.TELEGRAM, ContactType.WHATS_APP, ContactType.VIBER));
+        List<Contact> list = ContactGeneratorKt.generate();
+        ContactAdapter contactAdapter = new ContactAdapter();
+        binding.recycler.setAdapter(contactAdapter);
+        contactAdapter.setItems(list);
+
+        final Set<ContactSource> allContactSources = new ContactSourceRepository(this).getAllContactSources();
     }
 
     @Override
