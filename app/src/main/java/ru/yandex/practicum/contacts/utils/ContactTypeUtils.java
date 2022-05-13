@@ -1,10 +1,18 @@
 package ru.yandex.practicum.contacts.utils;
 
+import android.text.TextUtils;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.model.ContactType;
+import ru.yandex.practicum.contacts.model.MergedContact;
 
 public class ContactTypeUtils {
 
@@ -27,6 +35,24 @@ public class ContactTypeUtils {
                 return R.drawable.ic_type_email;
             default:
                 throw new IllegalArgumentException("Not supported type of ContactType");
+        }
+    }
+
+    @Nullable
+    public static ContactType parse(String value) {
+        switch (value) {
+            case Constants.TELEGRAM:
+                return ContactType.TELEGRAM;
+            case Constants.WHATSAPP:
+                return ContactType.WHATS_APP;
+            case Constants.VIBER:
+                return ContactType.VIBER;
+            case Constants.SIGNAL:
+                return ContactType.SIGNAL;
+            case Constants.THREEMA:
+                return ContactType.THREEMA;
+            default:
+                return null;
         }
     }
 }

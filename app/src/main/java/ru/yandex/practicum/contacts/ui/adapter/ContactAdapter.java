@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.yandex.practicum.contacts.databinding.ItemContactBinding;
-import ru.yandex.practicum.contacts.ui.model.Contact;
+import ru.yandex.practicum.contacts.ui.model.ContactUi;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
-    private final AsyncListDiffer<Contact> differ = new AsyncListDiffer<>(
+    private final AsyncListDiffer<ContactUi> differ = new AsyncListDiffer<>(
             new AdapterListUpdateCallback(this),
             new AsyncDifferConfig.Builder<>(new ListDiffCallback()).build()
     );
@@ -42,7 +42,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         return differ.getCurrentList().size();
     }
 
-    public void setItems(List<Contact> items) {
+    public void setItems(List<ContactUi> items) {
         differ.submitList(items);
     }
 
@@ -55,7 +55,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             this.binding = binding;
         }
 
-        public void bind(Contact contact) {
+        public void bind(ContactUi contact) {
             binding.name.setText(contact.getName());
             binding.creationDate.setText(contact.getDate());
 
@@ -68,15 +68,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
     }
 
-    static class ListDiffCallback extends DiffUtil.ItemCallback<Contact> {
+    static class ListDiffCallback extends DiffUtil.ItemCallback<ContactUi> {
 
         @Override
-        public boolean areItemsTheSame(@NonNull Contact oldItem, @NonNull Contact newItem) {
+        public boolean areItemsTheSame(@NonNull ContactUi oldItem, @NonNull ContactUi newItem) {
             return oldItem.hashCode() == newItem.hashCode();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Contact oldItem, @NonNull Contact newItem) {
+        public boolean areContentsTheSame(@NonNull ContactUi oldItem, @NonNull ContactUi newItem) {
             return oldItem.equals(newItem);
         }
     }

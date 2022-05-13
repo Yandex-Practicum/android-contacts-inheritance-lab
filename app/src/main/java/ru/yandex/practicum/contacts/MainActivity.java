@@ -3,41 +3,36 @@ package ru.yandex.practicum.contacts;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.List;
-import java.util.Set;
+import androidx.lifecycle.ViewModelProvider;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
-import ru.yandex.practicum.contacts.model.ContactSource;
-import ru.yandex.practicum.contacts.repository.ContactSourceRepository;
-import ru.yandex.practicum.contacts.tmp.ContactGeneratorKt;
 import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
-import ru.yandex.practicum.contacts.ui.model.Contact;
+import ru.yandex.practicum.contacts.ui.main.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private MainViewModel viewModel;
+    private ContactAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
-        getWindow().getDecorView().postDelayed(() -> binding.searchLayout.getRoot().setVisibility(View.VISIBLE), 2000);
+        adapter = new ContactAdapter();
+        binding.recycler.setAdapter(adapter);
 
-        List<Contact> list = ContactGeneratorKt.generate();
-        ContactAdapter contactAdapter = new ContactAdapter();
-        binding.recycler.setAdapter(contactAdapter);
-        contactAdapter.setItems(list);
-
-        final Set<ContactSource> allContactSources = new ContactSourceRepository(this).getAllContactSources();
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModel.init();
+        viewModel.getContactsLiveDate().observe(this, uiContacts -> adapter.setItems(uiContacts));
     }
 
     @Override

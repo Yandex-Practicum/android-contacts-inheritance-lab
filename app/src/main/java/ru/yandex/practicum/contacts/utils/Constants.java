@@ -17,6 +17,7 @@ public class Constants {
     public static final String WHATSAPP = "WhatsApp";
     public static final String VIBER = "Viber";
     public static final String THREEMA = "Threema";
+
     public static final String PHONE_STORAGE = "Phone storage";
     public static final String PHONE_STORAGE_PRIVATE = "Phone storage (hidden)";
 }

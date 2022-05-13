@@ -6,7 +6,7 @@ import java.util.List;
 
 import ru.yandex.practicum.contacts.model.ContactType;
 
-public class Contact {
+public class ContactUi {
 
     private final String name;
     private final String phone;
@@ -14,7 +14,7 @@ public class Contact {
     private final String photo;
     private final List<ContactType> types;
 
-    public Contact(
+    public ContactUi(
             @NonNull String name,
             @NonNull String phone,
             @NonNull String date,
@@ -53,7 +53,7 @@ public class Contact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Contact contact = (Contact) o;
+        ContactUi contact = (ContactUi) o;
 
         if (!name.equals(contact.name)) return false;
         if (!phone.equals(contact.phone)) return false;

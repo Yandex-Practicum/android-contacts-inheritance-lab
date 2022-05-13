@@ -74,7 +74,7 @@ public class ContactSourceRepository {
     @Nullable
     private ContactSource getContactSource(Account account) {
         if (isSyncable(account)) {
-            return new ContactSource(account.name, account.type, getAccountPublicName(account));
+            return new ContactSource(account.name, account.type, getAccountPublicName(account.type, account.name));
         } else {
             return null;
         }
@@ -95,13 +95,7 @@ public class ContactSourceRepository {
         ContextUtils.query(context, uri, projection, cursor -> {
             final String name = CursorUtils.getString(cursor, RawContacts.ACCOUNT_NAME);
             final String type = CursorUtils.getString(cursor, RawContacts.ACCOUNT_TYPE);
-
-            String publicName = name;
-            if (Objects.equals(type, Constants.TELEGRAM_PACKAGE)) {
-                publicName = Constants.TELEGRAM;
-            }
-
-            final ContactSource source = new ContactSource(name, type, publicName);
+            final ContactSource source = new ContactSource(name, type, getAccountPublicName(type, name));
             sources.add(source);
         });
         return Collections.unmodifiableSet(sources);
@@ -111,8 +105,8 @@ public class ContactSourceRepository {
         return ContentResolver.getIsSyncable(account, ContactsContract.AUTHORITY) == 1;
     }
 
-    private String getAccountPublicName(Account account) {
-        switch (account.type) {
+    private String getAccountPublicName(String type, String name) {
+        switch (type) {
             case (Constants.GOOGLE_PACKAGE):
                 return Constants.GOOGLE;
             case (Constants.TELEGRAM_PACKAGE):
@@ -126,7 +120,7 @@ public class ContactSourceRepository {
             case (Constants.THREEMA_PACKAGE):
                 return Constants.THREEMA;
             default:
-                return account.name;
+                return name;
         }
     }
 

@@ -1,15 +1,15 @@
 package ru.yandex.practicum.contacts.tmp
 
 import ru.yandex.practicum.contacts.model.ContactType
-import ru.yandex.practicum.contacts.ui.model.Contact
+import ru.yandex.practicum.contacts.ui.model.ContactUi
 import kotlin.random.Random
 
 private val names = listOf("Иван", "Петр", "Сергей", "Алексей", "Павел")
 private val surnames = listOf("Иванов", "Петров", "Сергеев", "Алексеев", "Павлов")
 
-fun generate(): List<Contact> {
+fun generate(): List<ContactUi> {
     return (1..30).map {
-        Contact(
+        ContactUi(
             "${names.random()} ${surnames.random()}",
             phone(),
             date(),
