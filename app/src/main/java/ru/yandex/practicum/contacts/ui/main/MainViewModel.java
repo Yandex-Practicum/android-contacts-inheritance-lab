@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import ru.yandex.practicum.contacts.model.Contact;
 import ru.yandex.practicum.contacts.model.ContactSource;
+import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.model.MergedContact;
 import ru.yandex.practicum.contacts.repository.ContactMerger;
 import ru.yandex.practicum.contacts.repository.ContactRepository;
@@ -60,6 +61,13 @@ public class MainViewModel extends AndroidViewModel {
     public void search(String query) {
         final List<MergedContact> filteredContacts = mergedContacts.stream()
                 .filter(contact -> MergedContactUtils.contains(contact, query))
+                .collect(Collectors.toList());
+        mapContactsAndUpdate(filteredContacts);
+    }
+
+    public void filter(Set<ContactType> types) {
+        final List<MergedContact> filteredContacts = mergedContacts.stream()
+                .filter(contact -> MergedContactUtils.contains(contact, types))
                 .collect(Collectors.toList());
         mapContactsAndUpdate(filteredContacts);
     }

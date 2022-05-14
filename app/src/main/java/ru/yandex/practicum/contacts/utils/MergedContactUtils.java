@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import ru.yandex.practicum.contacts.model.ContactType;
@@ -23,6 +24,14 @@ public class MergedContactUtils {
                 contact.getNormalizedNumber().contains(query) ||
                 contact.getPhone().contains(query) ||
                 contact.getEmail().contains(query);
+    }
+
+    public static boolean contains(MergedContact contact, Set<ContactType> types) {
+        if (types.isEmpty()){
+            return true;
+        }
+        final List<ContactType> contactTypes = getContactTypes(contact);
+        return !Collections.disjoint(contactTypes, types);
     }
 
     public static List<ContactType> getContactTypes(MergedContact contact) {
