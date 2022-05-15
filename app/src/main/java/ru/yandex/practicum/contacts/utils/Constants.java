@@ -1,7 +1,7 @@
 package ru.yandex.practicum.contacts.utils;
 
 public class Constants {
-    // apps with special handling
+
     public static final String GOOGLE_PACKAGE = "com.google";
     public static final String TELEGRAM_PACKAGE = "org.telegram.messenger";
     public static final String SIGNAL_PACKAGE = "org.thoughtcrime.securesms";

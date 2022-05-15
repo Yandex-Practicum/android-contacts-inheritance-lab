@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 
 import ru.yandex.practicum.contacts.model.ContactSource;
 import ru.yandex.practicum.contacts.utils.Constants;
-import ru.yandex.practicum.contacts.utils.ContextUtils;
-import ru.yandex.practicum.contacts.utils.CursorUtils;
+import ru.yandex.practicum.contacts.utils.android.ContextUtils;
+import ru.yandex.practicum.contacts.utils.android.CursorUtils;
 
 public class ContactSourceRepository {
 

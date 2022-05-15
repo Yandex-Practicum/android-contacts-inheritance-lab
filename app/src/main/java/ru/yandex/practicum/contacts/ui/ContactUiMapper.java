@@ -2,9 +2,8 @@ package ru.yandex.practicum.contacts.ui;
 
 import ru.yandex.practicum.contacts.model.MergedContact;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
-import ru.yandex.practicum.contacts.utils.ContactUtils;
-import ru.yandex.practicum.contacts.utils.MergedContactUtils;
-import ru.yandex.practicum.contacts.utils.PhoneUtils;
+import ru.yandex.practicum.contacts.utils.model.MergedContactUtils;
+import ru.yandex.practicum.contacts.utils.model.PhoneUtils;
 
 public class ContactUiMapper {
 

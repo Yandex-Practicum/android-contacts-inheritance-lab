@@ -18,17 +18,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import ru.yandex.practicum.contacts.model.Address;
 import ru.yandex.practicum.contacts.model.Contact;
-import ru.yandex.practicum.contacts.model.ContactSource;
 import ru.yandex.practicum.contacts.model.Email;
 import ru.yandex.practicum.contacts.model.PhoneNumber;
-import ru.yandex.practicum.contacts.utils.ContextUtils;
-import ru.yandex.practicum.contacts.utils.CursorUtils;
+import ru.yandex.practicum.contacts.utils.android.ContextUtils;
+import ru.yandex.practicum.contacts.utils.android.CursorUtils;
 
 public class ContactRepository {
 

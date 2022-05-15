@@ -1,18 +1,12 @@
-package ru.yandex.practicum.contacts.utils;
-
-import android.text.TextUtils;
+package ru.yandex.practicum.contacts.utils.model;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.model.ContactType;
-import ru.yandex.practicum.contacts.model.MergedContact;
+import ru.yandex.practicum.contacts.utils.Constants;
 
 public class ContactTypeUtils {
 

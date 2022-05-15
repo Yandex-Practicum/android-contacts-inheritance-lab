@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.utils;
+package ru.yandex.practicum.contacts.utils.model;
 
 import android.text.TextUtils;
 

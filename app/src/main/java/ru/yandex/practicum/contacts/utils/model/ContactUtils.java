@@ -1,18 +1,8 @@
-package ru.yandex.practicum.contacts.utils;
+package ru.yandex.practicum.contacts.utils.model;
 
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import ru.yandex.practicum.contacts.model.Contact;
-import ru.yandex.practicum.contacts.model.ContactType;
-import ru.yandex.practicum.contacts.model.MergedContact;
 
 public class ContactUtils {
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ import ru.yandex.practicum.contacts.repository.ContactRepository;
 import ru.yandex.practicum.contacts.repository.ContactSourceRepository;
 import ru.yandex.practicum.contacts.ui.ContactUiMapper;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
-import ru.yandex.practicum.contacts.utils.MergedContactUtils;
+import ru.yandex.practicum.contacts.utils.model.MergedContactUtils;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -32,7 +33,8 @@ public class MainViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<ContactUi>> contactsLiveDate = new MutableLiveData<>();
 
-    private List<MergedContact> mergedContacts = Collections.emptyList();
+    private List<MergedContact> allContacts = Collections.emptyList();
+    private List<MergedContact> lastFilteredContacts = Collections.emptyList();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -53,23 +55,35 @@ public class MainViewModel extends AndroidViewModel {
                 .collect(Collectors.toList());
         final List<Contact> contacts = contactRepository.getContacts(sourceNames);
 
-        mergedContacts = contactMerger.getMergedContacts(contacts, sources);
-        mapContactsAndUpdate(mergedContacts);
+        allContacts = contactMerger.getMergedContacts(contacts, sources);
+        mapContactsAndUpdate(allContacts);
 
     }
 
     public void search(String query) {
-        final List<MergedContact> filteredContacts = mergedContacts.stream()
+        lastFilteredContacts = allContacts.stream()
                 .filter(contact -> MergedContactUtils.contains(contact, query))
                 .collect(Collectors.toList());
-        mapContactsAndUpdate(filteredContacts);
+        mapContactsAndUpdate(lastFilteredContacts);
     }
 
     public void filter(Set<ContactType> types) {
-        final List<MergedContact> filteredContacts = mergedContacts.stream()
+        lastFilteredContacts = allContacts.stream()
                 .filter(contact -> MergedContactUtils.contains(contact, types))
                 .collect(Collectors.toList());
-        mapContactsAndUpdate(filteredContacts);
+        mapContactsAndUpdate(lastFilteredContacts);
+    }
+
+    public void sort(SortType type) {
+        final List<MergedContact> sortedContacts = lastFilteredContacts.stream()
+                .sorted(createComparator(type))
+                .collect(Collectors.toList());
+        mapContactsAndUpdate(sortedContacts);
+    }
+
+    public void clear() {
+        lastFilteredContacts = allContacts;
+        mapContactsAndUpdate(lastFilteredContacts);
     }
 
     private void mapContactsAndUpdate(List<MergedContact> mergedContacts) {
@@ -77,5 +91,27 @@ public class MainViewModel extends AndroidViewModel {
                 .map(uiMapper::map)
                 .collect(Collectors.toList());
         contactsLiveDate.postValue(uiContacts);
+    }
+
+    private Comparator<MergedContact> createComparator(SortType type) {
+        switch (type) {
+            case BY_NAME:
+                return Comparator.comparing(MergedContact::getFirstName);
+            case BY_NAME_REVERSED:
+                return Comparator.comparing(MergedContact::getFirstName).reversed();
+            case BY_SURNAME:
+                return Comparator.comparing(MergedContact::getSurname);
+            case BY_SURNAME_REVERSED:
+                return Comparator.comparing(MergedContact::getSurname).reversed();
+            default:
+                throw new IllegalArgumentException("Not supported SortType");
+        }
+    }
+
+    enum SortType {
+        BY_NAME,
+        BY_NAME_REVERSED,
+        BY_SURNAME,
+        BY_SURNAME_REVERSED
     }
 }

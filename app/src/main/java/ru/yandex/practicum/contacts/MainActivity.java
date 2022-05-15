@@ -1,16 +1,15 @@
 package ru.yandex.practicum.contacts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -18,6 +17,7 @@ import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
 import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
 import ru.yandex.practicum.contacts.ui.main.MainViewModel;
+import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.init();
         viewModel.getContactsLiveDate().observe(this, uiContacts -> adapter.setItems(uiContacts));
+
+        EditTextUtils.debounce(binding.searchLayout.searchText, (value -> Log.e("VALUE = ", value.toString())));
 
         getWindow().getDecorView().postDelayed(() -> viewModel.search("+447"), 3000);
         getWindow().getDecorView().postDelayed(() -> viewModel.filter(new HashSet<>(Collections.singletonList(ContactType.EMAIL))), 6000);

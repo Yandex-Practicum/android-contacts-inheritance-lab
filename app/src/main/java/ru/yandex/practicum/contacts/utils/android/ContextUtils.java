@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.utils;
+package ru.yandex.practicum.contacts.utils.android;
 
 import android.Manifest;
 import android.content.Context;

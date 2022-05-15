@@ -14,7 +14,7 @@ import ru.yandex.practicum.contacts.model.Contact;
 import ru.yandex.practicum.contacts.model.ContactSource;
 import ru.yandex.practicum.contacts.model.MergedContact;
 import ru.yandex.practicum.contacts.utils.Constants;
-import ru.yandex.practicum.contacts.utils.ContactUtils;
+import ru.yandex.practicum.contacts.utils.model.ContactUtils;
 
 public class ContactMerger {
 
