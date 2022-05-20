@@ -56,6 +56,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         public ViewHolder(@NonNull ItemContactBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(view -> { });
         }
 
         public void bind(ContactUi contact) {

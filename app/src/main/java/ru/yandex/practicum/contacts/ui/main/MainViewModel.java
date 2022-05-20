@@ -7,8 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -34,9 +32,11 @@ public class MainViewModel extends AndroidViewModel {
     private final ContactUiMapper uiMapper;
 
     private final MutableLiveData<List<ContactUi>> contactsLiveDate = new MutableLiveData<>();
+    private final MutableLiveData<UiState> uiStateLiveDate = new MutableLiveData<>();
 
-    private List<MergedContact> allContacts = Collections.emptyList();
-    private List<MergedContact> lastFilteredContacts = Collections.emptyList();
+    private State state = new State();
+
+    private UiState uiState = new UiState();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -51,6 +51,10 @@ public class MainViewModel extends AndroidViewModel {
         return contactsLiveDate;
     }
 
+    public MutableLiveData<UiState> getUiStateLiveDate() {
+        return uiStateLiveDate;
+    }
+
     public void initLoading() {
         final Set<ContactSource> sources = contactSourceRepository.getAllContactSources();
         final List<String> sourceNames = sources.stream()
@@ -58,36 +62,66 @@ public class MainViewModel extends AndroidViewModel {
                 .collect(Collectors.toList());
         final List<Contact> contacts = contactRepository.getContacts(sourceNames);
 
-        final List<Contact> list = contacts.stream().sorted(Comparator.comparing(Contact::getId)).collect(Collectors.toList());
+        //final List<Contact> list = contacts.stream().sorted(Comparator.comparing(Contact::getId)).collect(Collectors.toList());
 
-        allContacts = contactMerger.getMergedContacts(contacts, sources);
-        mapContactsAndUpdate(allContacts);
+        final List<MergedContact> allContacts = contactMerger.getMergedContacts(contacts, sources);
+        state.setAllContacts(allContacts);
+        mapContactsAndUpdate(state.getAllContacts());
     }
 
     public void search(String query) {
-        lastFilteredContacts = allContacts.stream()
+        final List<MergedContact> lastFilteredContacts = state.getAllContacts().stream()
                 .filter(contact -> MergedContactUtils.contains(contact, query))
                 .collect(Collectors.toList());
-        mapContactsAndUpdate(lastFilteredContacts);
+        state.setLastFilteredContacts(lastFilteredContacts);
+        mapContactsAndUpdate(state.getLastFilteredContacts());
     }
 
     public void filter(Set<ContactType> types) {
-        lastFilteredContacts = allContacts.stream()
+        final List<MergedContact> lastFilteredContacts = state.getAllContacts().stream()
                 .filter(contact -> MergedContactUtils.contains(contact, types))
                 .collect(Collectors.toList());
-        mapContactsAndUpdate(lastFilteredContacts);
+        state.setLastFilteredContacts(lastFilteredContacts);
+        mapContactsAndUpdate(state.getLastFilteredContacts());
     }
 
     public void sort(SortType type) {
-        final List<MergedContact> sortedContacts = lastFilteredContacts.stream()
+        final List<MergedContact> sortedContacts = state.getLastFilteredContacts().stream()
                 .sorted(createComparator(type))
                 .collect(Collectors.toList());
         mapContactsAndUpdate(sortedContacts);
     }
 
+    public void onMenuClick(MenuClick click) {
+        switch (click) {
+            case SORT:
+                break;
+            case FILTER:
+                break;
+            case SEARCH:
+                uiState.searchVisibility = !uiState.searchVisibility;
+                updateUiState();
+                break;
+        }
+    }
+
+    public void onBackPressed() {
+        if (uiState.searchVisibility) {
+            uiState.searchVisibility = false;
+        } else {
+            uiState.finishing = true;
+        }
+        updateUiState();
+    }
+
     public void clear() {
-        lastFilteredContacts = allContacts;
-        mapContactsAndUpdate(lastFilteredContacts);
+        state.clear();
+        mapContactsAndUpdate(state.getLastFilteredContacts());
+    }
+
+    public void updateSearchText(String query) {
+        uiState.resetSearchButtonVisibility = query.length() != 0;
+        updateUiState();
     }
 
     private void mapContactsAndUpdate(List<MergedContact> mergedContacts) {
@@ -110,6 +144,10 @@ public class MainViewModel extends AndroidViewModel {
             default:
                 throw new IllegalArgumentException("Not supported SortType");
         }
+    }
+
+    private void updateUiState() {
+        uiStateLiveDate.setValue(uiState);
     }
 
     enum SortType {

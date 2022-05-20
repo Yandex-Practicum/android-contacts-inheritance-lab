@@ -1,9 +1,9 @@
 package ru.yandex.practicum.contacts;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.StringRes;
@@ -11,15 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
-import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
 import ru.yandex.practicum.contacts.ui.main.MainViewModel;
+import ru.yandex.practicum.contacts.ui.main.MenuClick;
+import ru.yandex.practicum.contacts.ui.main.UiState;
+import ru.yandex.practicum.contacts.ui.model.ContactUi;
 import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
         binding.recycler.addItemDecoration(decoration);
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        viewModel.getContactsLiveDate().observe(this, uiContacts -> adapter.setItems(uiContacts));
+        viewModel.getContactsLiveDate().observe(this, this::updateContacts);
+        viewModel.getUiStateLiveDate().observe(this, this::updateUiState);
 
-        EditTextUtils.debounce(binding.searchLayout.searchText, (value -> Log.e("VALUE = ", value.toString())));
+        EditTextUtils.addTextListener(binding.searchLayout.searchText, query -> viewModel.updateSearchText(query.toString()));
+        EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search(query.toString()));
+        binding.searchLayout.resetButton.setOnClickListener(view -> clearSearch());
 
-        getWindow().getDecorView().postDelayed(() -> viewModel.search("+447"), 3000);
-        getWindow().getDecorView().postDelayed(() -> viewModel.filter(new HashSet<>(Collections.singletonList(ContactType.EMAIL))), 6000);
+//        getWindow().getDecorView().postDelayed(() -> viewModel.search("+447"), 3000);
+//        getWindow().getDecorView().postDelayed(() -> viewModel.filter(new HashSet<>(Collections.singletonList(ContactType.EMAIL))), 6000);
     }
 
     @Override
@@ -70,11 +75,36 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.menu_search) {
+            viewModel.onMenuClick(MenuClick.SEARCH);
             toast(R.string.menu_search);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        viewModel.onBackPressed();
+    }
+
+    private void updateContacts(List<ContactUi> contacts) {
+        adapter.setItems(contacts);
+        binding.recycler.scrollToPosition(0);
+    }
+
+    private void updateUiState(UiState uiState) {
+        if (uiState.finishing) {
+            finish();
+            return;
+        }
+        binding.searchLayout.getRoot().setVisibility(uiState.searchVisibility ? View.VISIBLE : View.GONE);
+        binding.searchLayout.resetButton.setVisibility(uiState.resetSearchButtonVisibility ? View.VISIBLE : View.GONE);
+    }
+
+    private void clearSearch() {
+        binding.searchLayout.searchText.setText("");
+        viewModel.search("");
     }
 
     private void toast(@StringRes int res) {

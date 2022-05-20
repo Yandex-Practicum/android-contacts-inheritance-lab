@@ -36,10 +36,10 @@ public class MergedContactUtils {
     }
 
     public static List<ContactType> getContactTypes(MergedContact contact) {
-        final ArrayList<ContactType> allTypes = contact.getContactTypes().stream()
+        final List<ContactType> allTypes = contact.getContactTypes().stream()
                 .map(ContactTypeUtils::parse)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toCollection(ArrayList::new));
+                .collect(Collectors.toList());
         if (!TextUtils.isEmpty(contact.getPhone())) {
             allTypes.add(ContactType.PHONE);
         }
