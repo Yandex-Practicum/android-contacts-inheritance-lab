@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,6 +23,7 @@ import ru.yandex.practicum.contacts.repository.ContactRepository;
 import ru.yandex.practicum.contacts.repository.ContactSourceRepository;
 import ru.yandex.practicum.contacts.ui.ContactUiMapper;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
+import ru.yandex.practicum.contacts.utils.java.ThreadUtils;
 import ru.yandex.practicum.contacts.utils.model.MergedContactUtils;
 
 public class MainViewModel extends AndroidViewModel {
@@ -42,22 +44,24 @@ public class MainViewModel extends AndroidViewModel {
         contactRepository = new ContactRepository(application);
         contactMerger = new ContactMerger();
         uiMapper = new ContactUiMapper();
+        ThreadUtils.runAsync(this::initLoading);
     }
 
     public LiveData<List<ContactUi>> getContactsLiveDate() {
         return contactsLiveDate;
     }
 
-    public void init() {
+    public void initLoading() {
         final Set<ContactSource> sources = contactSourceRepository.getAllContactSources();
         final List<String> sourceNames = sources.stream()
                 .map(ContactSource::getName)
                 .collect(Collectors.toList());
         final List<Contact> contacts = contactRepository.getContacts(sourceNames);
 
+        final List<Contact> list = contacts.stream().sorted(Comparator.comparing(Contact::getId)).collect(Collectors.toList());
+
         allContacts = contactMerger.getMergedContacts(contacts, sources);
         mapContactsAndUpdate(allContacts);
-
     }
 
     public void search(String query) {

@@ -3,6 +3,7 @@ package ru.yandex.practicum.contacts.utils.model;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -35,18 +36,17 @@ public class MergedContactUtils {
     }
 
     public static List<ContactType> getContactTypes(MergedContact contact) {
-        final ArrayList<ContactType> allTypes = new ArrayList<>();
+        final ArrayList<ContactType> allTypes = contact.getContactTypes().stream()
+                .map(ContactTypeUtils::parse)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
         if (!TextUtils.isEmpty(contact.getPhone())) {
             allTypes.add(ContactType.PHONE);
         }
         if (!TextUtils.isEmpty(contact.getEmail())) {
             allTypes.add(ContactType.EMAIL);
         }
-        final List<ContactType> types = contact.getContactTypes().stream()
-                .map(ContactTypeUtils::parse)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        allTypes.addAll(types);
+        Collections.sort(allTypes);
 
         return Collections.unmodifiableList(allTypes);
     }

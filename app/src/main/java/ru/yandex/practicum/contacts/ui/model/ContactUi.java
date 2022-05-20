@@ -10,20 +10,17 @@ public class ContactUi {
 
     private final String name;
     private final String phone;
-    private final String date;
     private final String photo;
     private final List<ContactType> types;
 
     public ContactUi(
             @NonNull String name,
             @NonNull String phone,
-            @NonNull String date,
             @NonNull String photo,
             @NonNull List<ContactType> types
     ) {
         this.name = name;
         this.phone = phone;
-        this.date = date;
         this.photo = photo;
         this.types = types;
     }
@@ -34,10 +31,6 @@ public class ContactUi {
 
     public String getPhone() {
         return phone;
-    }
-
-    public String getDate() {
-        return date;
     }
 
     public String getPhoto() {
@@ -57,7 +50,6 @@ public class ContactUi {
 
         if (!name.equals(contact.name)) return false;
         if (!phone.equals(contact.phone)) return false;
-        if (!date.equals(contact.date)) return false;
         if (!photo.equals(contact.photo)) return false;
         return types.equals(contact.types);
     }
@@ -66,7 +58,6 @@ public class ContactUi {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + date.hashCode();
         result = 31 * result + photo.hashCode();
         result = 31 * result + types.hashCode();
         return result;

@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
+import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ItemContactBinding;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
 
@@ -57,12 +60,17 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         public void bind(ContactUi contact) {
             binding.name.setText(contact.getName());
-            binding.creationDate.setText(contact.getDate());
+            Glide.with(binding.contactPhoto)
+                    .load(contact.getPhoto())
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_avatar)
+                    .fallback(R.drawable.ic_avatar)
+                    .error(R.drawable.ic_avatar)
+                    .into(binding.contactPhoto);
 
             final int phoneVisibility = TextUtils.isEmpty(contact.getPhone()) ? View.GONE : View.VISIBLE;
             binding.phone.setText(contact.getPhone());
             binding.phone.setVisibility(phoneVisibility);
-            binding.phoneIcon.setVisibility(phoneVisibility);
 
             binding.contactType.setData(contact.getTypes());
         }

@@ -8,10 +8,13 @@ import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
 import ru.yandex.practicum.contacts.model.ContactType;
@@ -36,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ContactAdapter();
         binding.recycler.setAdapter(adapter);
 
+        final DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.item_decoration)));
+        binding.recycler.addItemDecoration(decoration);
+
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        viewModel.init();
         viewModel.getContactsLiveDate().observe(this, uiContacts -> adapter.setItems(uiContacts));
 
         EditTextUtils.debounce(binding.searchLayout.searchText, (value -> Log.e("VALUE = ", value.toString())));
