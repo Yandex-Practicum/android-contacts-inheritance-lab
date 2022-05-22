@@ -28,7 +28,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
             android:src="@drawable/ic_menu_search"
-            app:tint="@color/color_grey"
+            app:tint="@color/color_text_grey"
             tools:ignore="ContentDescription" />
 
         <EditText
@@ -54,7 +54,7 @@
             android:foreground="?selectableItemBackground"
             android:src="@drawable/ic_close"
             android:visibility="gone"
-            app:tint="@color/color_grey"
+            app:tint="@color/color_text_grey"
             tools:ignore="ContentDescription"
             tools:visibility="visible" />
 
