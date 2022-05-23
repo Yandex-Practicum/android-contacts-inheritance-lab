@@ -16,15 +16,16 @@ import ru.yandex.practicum.contacts.model.MergedContact;
 public class MergedContactUtils {
 
     public static boolean contains(MergedContact contact, String query) {
-        if (TextUtils.isEmpty(query)) {
+        final String lowerCaseQuery = query.toLowerCase();
+        if (TextUtils.isEmpty(lowerCaseQuery)) {
             return true;
         }
-        return contact.getFirstName().contains(query) ||
-                contact.getMiddleName().contains(query) ||
-                contact.getSurname().contains(query) ||
-                contact.getNormalizedNumber().contains(query) ||
-                contact.getPhone().contains(query) ||
-                contact.getEmail().contains(query);
+        return contact.getFirstName().toLowerCase().contains(lowerCaseQuery) ||
+                contact.getMiddleName().toLowerCase().contains(lowerCaseQuery) ||
+                contact.getSurname().toLowerCase().contains(lowerCaseQuery) ||
+                contact.getNormalizedNumber().toLowerCase().contains(lowerCaseQuery) ||
+                contact.getPhone().toLowerCase().contains(lowerCaseQuery) ||
+                contact.getEmail().toLowerCase().contains(lowerCaseQuery);
     }
 
     public static boolean contains(MergedContact contact, Set<ContactType> types) {

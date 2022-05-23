@@ -13,4 +13,6 @@
     <string name="menu_sort">Сортировка</string>
     <string name="menu_filter">Фильтр</string>
     <string name="menu_search">Поиск</string>
+
+    <string name="nothing_found">Ничего не нашлось</string>
 </resources>

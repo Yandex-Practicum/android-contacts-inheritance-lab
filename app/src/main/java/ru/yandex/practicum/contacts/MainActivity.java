@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         EditTextUtils.addTextListener(binding.searchLayout.searchText, query -> viewModel.updateSearchText(query.toString()));
         EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search(query.toString()));
         binding.searchLayout.resetButton.setOnClickListener(view -> clearSearch());
-
-//        getWindow().getDecorView().postDelayed(() -> viewModel.search("+447"), 3000);
-//        getWindow().getDecorView().postDelayed(() -> viewModel.filter(new HashSet<>(Collections.singletonList(ContactType.EMAIL))), 6000);
     }
 
     @Override
@@ -91,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
     private void updateContacts(List<ContactUi> contacts) {
         adapter.setItems(contacts);
         binding.recycler.scrollToPosition(0);
+        if (contacts.size() > 0) {
+            binding.recycler.setVisibility(View.VISIBLE);
+            binding.nothingFound.setVisibility(View.GONE);
+        } else {
+            binding.recycler.setVisibility(View.GONE);
+            binding.nothingFound.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateUiState(UiState uiState) {

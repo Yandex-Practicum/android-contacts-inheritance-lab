@@ -76,7 +76,7 @@ public abstract class StackImageView<T> extends FrameLayout {
             view.setLayoutParams(layoutParams);
 
             view.setVisibility(GONE);
-            view.setBackgroundResource(R.drawable.image_view_borger_bg);
+            view.setBackgroundResource(R.drawable.bg_image_view_borger);
 
             addView(view);
             icons[i] = view;
