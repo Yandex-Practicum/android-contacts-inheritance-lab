@@ -150,10 +150,4 @@ public class MainViewModel extends AndroidViewModel {
         uiStateLiveDate.setValue(uiState);
     }
 
-    enum SortType {
-        BY_NAME,
-        BY_NAME_REVERSED,
-        BY_SURNAME,
-        BY_SURNAME_REVERSED
-    }
 }

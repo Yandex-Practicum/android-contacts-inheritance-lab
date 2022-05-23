@@ -16,4 +16,7 @@
 
     <string name="nothing_found">Ничего не нашлось</string>
     <string name="go_to_settings">Перейти в настройки</string>
+
+    <string name="reset">Сбросить</string>
+    <string name="apply">Применить</string>
 </resources>

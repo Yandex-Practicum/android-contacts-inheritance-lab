@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         EditTextUtils.addTextListener(binding.searchLayout.searchText, query -> viewModel.updateSearchText(query.toString()));
         EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search(query.toString()));
         binding.searchLayout.resetButton.setOnClickListener(view -> clearSearch());
+
+//        getWindow().getDecorView().postDelayed(() -> {
+//            BaseBottomSheetDialogFragment.newInstance().show(getSupportFragmentManager(), null);
+//        }, 2000);
     }
 
     @Override
