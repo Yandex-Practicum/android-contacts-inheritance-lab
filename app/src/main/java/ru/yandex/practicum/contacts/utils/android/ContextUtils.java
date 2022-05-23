@@ -13,8 +13,7 @@ import java.util.function.Consumer;
 public class ContextUtils {
 
     public static boolean hasContactPermissions(Context context) {
-        return hasPermission(context, Manifest.permission.READ_CONTACTS) &&
-                hasPermission(context, Manifest.permission.WRITE_CONTACTS);
+        return hasPermission(context, Manifest.permission.READ_CONTACTS);
     }
 
     private static boolean hasPermission(Context context, String permission) {

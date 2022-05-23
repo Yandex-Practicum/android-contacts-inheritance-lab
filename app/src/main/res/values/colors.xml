@@ -18,4 +18,8 @@
     <color name="color_super_light_grey">#F0F1F3</color>
     <color name="color_red">#F54543</color>
     <color name="color_green">#33B471</color>
+
+    <color name="color_white_50">#80FFFFFF</color>
+    <color name="color_blue_50">#80005FFF</color>
+
 </resources>
