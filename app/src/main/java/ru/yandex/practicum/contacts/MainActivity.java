@@ -1,18 +1,25 @@
 package ru.yandex.practicum.contacts;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
@@ -23,11 +30,14 @@ import ru.yandex.practicum.contacts.ui.main.UiState;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
 import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 
+@SuppressLint("UnsafeExperimentalUsageError")
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
     private ContactAdapter adapter;
+
+    private Map<Integer, BadgeDrawable> badges = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        createBadges();
         return true;
     }
 
@@ -103,6 +114,44 @@ public class MainActivity extends AppCompatActivity {
         }
         binding.searchLayout.getRoot().setVisibility(uiState.searchVisibility ? View.VISIBLE : View.GONE);
         binding.searchLayout.resetButton.setVisibility(uiState.resetSearchButtonVisibility ? View.VISIBLE : View.GONE);
+        updateBadges(uiState);
+    }
+
+    private void updateBadges(UiState uiState) {
+        updateBadge(uiState.sortBadge, R.id.menu_sort);
+        updateBadge(uiState.filterBadge, R.id.menu_filter);
+        updateBadge(uiState.searchBadge, R.id.menu_search);
+    }
+
+    private void updateBadge(UiState.MenuBadge badge, @IdRes int menuItemId) {
+        final BadgeDrawable drawable = Objects.requireNonNull(badges.get(menuItemId));
+        if (badge != null) {
+            drawable.setVisible(true);
+            if (badge.value > 0) {
+                drawable.setNumber(badge.value);
+            } else {
+                drawable.clearNumber();
+            }
+        } else {
+            drawable.setVisible(false);
+        }
+    }
+
+    private void createBadges() {
+        badges.put(R.id.menu_sort, createBadge());
+        badges.put(R.id.menu_filter, createBadge());
+        badges.put(R.id.menu_search, createBadge());
+
+        for (Map.Entry<Integer, BadgeDrawable> entry : badges.entrySet()) {
+            BadgeUtils.attachBadgeDrawable(entry.getValue(), binding.toolbar, entry.getKey());
+        }
+    }
+
+    private BadgeDrawable createBadge() {
+        final BadgeDrawable drawable = BadgeDrawable.create(this);
+        drawable.setBackgroundColor(ContextCompat.getColor(this, R.color.color_red));
+        drawable.setVisible(false);
+        return drawable;
     }
 
     private void clearSearch() {
