@@ -36,7 +36,6 @@ public abstract class BaseBottomSheetDialogFragment<T extends BaseBottomSheetVie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(viewModelClass);
-        viewModel.init();
         binding.applyButton.setOnClickListener(v -> viewModel.onApplyClick());
         binding.resetButton.setOnClickListener(v -> viewModel.onResetClick());
     }

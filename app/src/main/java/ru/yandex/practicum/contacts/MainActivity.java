@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -27,7 +29,7 @@ import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
 import ru.yandex.practicum.contacts.ui.dialog.SortDialogFragment;
 import ru.yandex.practicum.contacts.ui.main.MainViewModel;
 import ru.yandex.practicum.contacts.ui.main.MenuClick;
-import ru.yandex.practicum.contacts.ui.main.UiState;
+import ru.yandex.practicum.contacts.ui.main.SortType;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
 import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 
@@ -65,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
         EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search(query.toString()));
         binding.searchLayout.resetButton.setOnClickListener(view -> clearSearch());
 
-//        getWindow().getDecorView().postDelayed(() -> {
-//            BaseBottomSheetDialogFragment.newInstance().show(getSupportFragmentManager(), null);
-//        }, 2000);
+        getSupportFragmentManager().setFragmentResultListener(SortDialogFragment.REQUEST_KEY, this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                final String key = requestKey;
+                final Bundle bundle = result;
+            }
+        });
     }
 
     @Override
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_sort) {
-            SortDialogFragment.newInstance().show(getSupportFragmentManager(), SORT_TAG);
+            SortDialogFragment.newInstance(SortType.BY_NAME).show(getSupportFragmentManager(), SORT_TAG);
             return true;
         }
         if (id == R.id.menu_filter) {
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateUiState(UiState uiState) {
+    private void updateUiState(MainViewModel.UiState uiState) {
         if (uiState.finishing) {
             finish();
             return;
@@ -124,13 +130,13 @@ public class MainActivity extends AppCompatActivity {
         updateBadges(uiState);
     }
 
-    private void updateBadges(UiState uiState) {
+    private void updateBadges(MainViewModel.UiState uiState) {
         updateBadge(uiState.sortBadge, R.id.menu_sort);
         updateBadge(uiState.filterBadge, R.id.menu_filter);
         updateBadge(uiState.searchBadge, R.id.menu_search);
     }
 
-    private void updateBadge(UiState.MenuBadge badge, @IdRes int menuItemId) {
+    private void updateBadge(MainViewModel.UiState.MenuBadge badge, @IdRes int menuItemId) {
         final BadgeDrawable drawable = Objects.requireNonNull(badges.get(menuItemId));
         if (badge != null) {
             drawable.setVisible(true);

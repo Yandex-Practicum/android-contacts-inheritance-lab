@@ -13,32 +13,45 @@ import ru.yandex.practicum.contacts.ui.model.SortTypeUI;
 
 public class SortViewModel extends BaseBottomSheetViewModel {
 
-    @Nullable
-    private SortType selectedSortType = null;
+    private final UiState uiState = new UiState();
     private final MutableLiveData<List<SortTypeUI>> sortTypesLiveDate = new MutableLiveData<>();
+    private final MutableLiveData<UiState> uiStateLiveDate = new MutableLiveData<>();
 
-    @Override
-    public void init() {
+    private SortType defaultSortType;
+    private SortType selectedSortType;
+
+    public void init(SortType defaultSortType) {
+        this.defaultSortType = defaultSortType;
+        this.selectedSortType = defaultSortType;
         updateSortTypes();
+        updateUiState();
     }
 
     public void onSortTypeItemClick(SortTypeUI sortType) {
         selectedSortType = sortType.getSortType();
         updateSortTypes();
+        updateUiState();
     }
 
     @Override
     public void onApplyClick() {
-
+        uiState.newSelectedSortType = selectedSortType;
+        updateUiState();
     }
 
     @Override
     public void onResetClick() {
-
+        selectedSortType = defaultSortType;
+        updateSortTypes();
+        updateUiState();
     }
 
     public MutableLiveData<List<SortTypeUI>> getSortTypesLiveDate() {
         return sortTypesLiveDate;
+    }
+
+    public MutableLiveData<UiState> getUiStateLiveDate() {
+        return uiStateLiveDate;
     }
 
     private void updateSortTypes() {
@@ -49,5 +62,13 @@ public class SortViewModel extends BaseBottomSheetViewModel {
         sortTypesLiveDate.postValue(sortTypesUi);
     }
 
+    private void updateUiState() {
+        uiState.isApplyEnable = defaultSortType != selectedSortType;
+        uiStateLiveDate.postValue(uiState);
+    }
 
+    static class UiState {
+        public boolean isApplyEnable = false;
+        @Nullable public SortType newSelectedSortType = null;
+    }
 }

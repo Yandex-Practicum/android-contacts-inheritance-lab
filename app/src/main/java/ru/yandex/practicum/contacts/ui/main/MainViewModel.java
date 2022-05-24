@@ -3,6 +3,7 @@ package ru.yandex.practicum.contacts.ui.main;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -34,9 +35,8 @@ public class MainViewModel extends AndroidViewModel {
     private final MutableLiveData<List<ContactUi>> contactsLiveDate = new MutableLiveData<>();
     private final MutableLiveData<UiState> uiStateLiveDate = new MutableLiveData<>();
 
-    private State state = new State();
-
-    private UiState uiState = new UiState();
+    private final State state = new State();
+    private final UiState uiState = new UiState();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -150,4 +150,21 @@ public class MainViewModel extends AndroidViewModel {
         uiStateLiveDate.setValue(uiState);
     }
 
+    public static class UiState {
+
+        public boolean searchVisibility = false;
+        public boolean finishing = false;
+        public boolean resetSearchButtonVisibility = false;
+
+        @Nullable
+        public MenuBadge sortBadge = null;
+        @Nullable
+        public MenuBadge filterBadge = null;
+        @Nullable
+        public MenuBadge searchBadge = null;
+
+        public static class MenuBadge {
+            public int value = 0;
+        }
+    }
 }
