@@ -14,11 +14,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import ru.yandex.practicum.contacts.databinding.FragmentBottomSheetBinding;
 
-public abstract class BaseBottomSheetDialogFragment<T extends ViewModel> extends BottomSheetDialogFragment {
+public abstract class BaseBottomSheetDialogFragment<T extends BaseBottomSheetViewModel> extends BottomSheetDialogFragment {
 
-    private FragmentBottomSheetBinding binding;
-    private Class<T> viewModelClass;
+    private final Class<T> viewModelClass;
 
+    protected FragmentBottomSheetBinding binding;
     protected T viewModel;
 
     public BaseBottomSheetDialogFragment(Class<T> viewModelClass) {
@@ -36,6 +36,9 @@ public abstract class BaseBottomSheetDialogFragment<T extends ViewModel> extends
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(viewModelClass);
+        viewModel.init();
+        binding.applyButton.setOnClickListener(v -> viewModel.onApplyClick());
+        binding.resetButton.setOnClickListener(v -> viewModel.onResetClick());
     }
 
     @Override

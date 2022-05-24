@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
 import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
+import ru.yandex.practicum.contacts.ui.dialog.SortDialogFragment;
 import ru.yandex.practicum.contacts.ui.main.MainViewModel;
 import ru.yandex.practicum.contacts.ui.main.MenuClick;
 import ru.yandex.practicum.contacts.ui.main.UiState;
@@ -33,11 +34,13 @@ import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 @SuppressLint("UnsafeExperimentalUsageError")
 public class MainActivity extends AppCompatActivity {
 
+    public static final String SORT_TAG = "SORT_TAG";
+
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
     private ContactAdapter adapter;
 
-    private Map<Integer, BadgeDrawable> badges = new HashMap<>();
+    private final Map<Integer, BadgeDrawable> badges = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_sort) {
-            toast(R.string.menu_sort);
+            SortDialogFragment.newInstance().show(getSupportFragmentManager(), SORT_TAG);
             return true;
         }
         if (id == R.id.menu_filter) {

@@ -19,4 +19,9 @@
 
     <string name="reset">Сбросить</string>
     <string name="apply">Применить</string>
+
+    <string name="sort_by_name">По имени (А-Я / A-Z)</string>
+    <string name="sort_by_name_reversed">По имени (Я-А / Z-A)</string>
+    <string name="sort_by_surname">По фамилии (А-Я / A-Z)</string>
+    <string name="sort_by_surname_reversed">По фамилии (Я-А / Z-A)</string>
 </resources>
