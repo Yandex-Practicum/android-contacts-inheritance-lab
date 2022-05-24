@@ -22,6 +22,11 @@ public class SortViewModel extends BaseBottomSheetViewModel {
         updateSortTypes();
     }
 
+    public void onSortTypeItemClick(SortTypeUI sortType) {
+        selectedSortType = sortType.getSortType();
+        updateSortTypes();
+    }
+
     @Override
     public void onApplyClick() {
 
@@ -43,4 +48,6 @@ public class SortViewModel extends BaseBottomSheetViewModel {
                 .collect(Collectors.toList());
         sortTypesLiveDate.postValue(sortTypesUi);
     }
+
+
 }

@@ -52,18 +52,6 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <include
-            layout="@layout/item_filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp" />
-
-        <include
-            layout="@layout/item_sort"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp" />
-
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
