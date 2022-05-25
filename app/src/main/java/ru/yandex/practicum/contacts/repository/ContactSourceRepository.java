@@ -63,10 +63,10 @@ public class ContactSourceRepository {
         contactSources.addAll(contentResolverSources);
 
         if (!containsRegularPhoneSource(contactSources)) {
-            contactSources.add(new ContactSource(Constants.PHONE_STORAGE, Constants.PHONE_STORAGE, Constants.PHONE_STORAGE));
+            contactSources.add(new ContactSource(Constants.StorageType.PHONE_STORAGE, Constants.StorageType.PHONE_STORAGE, Constants.StorageType.PHONE_STORAGE));
         }
 
-        contactSources.add(new ContactSource(Constants.SMT_PRIVATE, Constants.SMT_PRIVATE, Constants.PHONE_STORAGE_PRIVATE));
+        contactSources.add(new ContactSource(Constants.StorageType.SMT_PRIVATE, Constants.StorageType.SMT_PRIVATE, Constants.StorageType.PHONE_STORAGE_PRIVATE));
 
         return Collections.unmodifiableSet(contactSources);
     }
@@ -107,18 +107,18 @@ public class ContactSourceRepository {
 
     private String getAccountPublicName(String type, String name) {
         switch (type) {
-            case (Constants.GOOGLE_PACKAGE):
-                return Constants.GOOGLE;
-            case (Constants.TELEGRAM_PACKAGE):
-                return Constants.TELEGRAM;
-            case (Constants.SIGNAL_PACKAGE):
-                return Constants.SIGNAL;
-            case (Constants.WHATSAPP_PACKAGE):
-                return Constants.WHATSAPP;
-            case (Constants.VIBER_PACKAGE):
-                return Constants.VIBER;
-            case (Constants.THREEMA_PACKAGE):
-                return Constants.THREEMA;
+            case (Constants.Packages.GOOGLE):
+                return Constants.StorageType.GOOGLE;
+            case (Constants.Packages.TELEGRAM):
+                return Constants.StorageType.TELEGRAM;
+            case (Constants.Packages.SIGNAL):
+                return Constants.StorageType.SIGNAL;
+            case (Constants.Packages.WHATSAPP):
+                return Constants.StorageType.WHATSAPP;
+            case (Constants.Packages.VIBER):
+                return Constants.StorageType.VIBER;
+            case (Constants.Packages.THREEMA):
+                return Constants.StorageType.THREEMA;
             default:
                 return name;
         }

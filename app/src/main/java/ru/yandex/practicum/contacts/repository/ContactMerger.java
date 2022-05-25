@@ -51,10 +51,10 @@ public class ContactMerger {
     }
 
     private ContactSource resolveConflicts(ContactSource source1, ContactSource source2) {
-        if (Objects.equals(source1.getType(), Constants.GOOGLE)) {
+        if (Objects.equals(source1.getType(), Constants.StorageType.GOOGLE)) {
             return source1;
         }
-        if (Objects.equals(source2.getType(), Constants.GOOGLE)) {
+        if (Objects.equals(source2.getType(), Constants.StorageType.GOOGLE)) {
             return source2;
         }
         return source1;

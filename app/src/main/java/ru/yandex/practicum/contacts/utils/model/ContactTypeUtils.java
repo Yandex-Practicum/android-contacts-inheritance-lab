@@ -57,15 +57,15 @@ public class ContactTypeUtils {
     @Nullable
     public static ContactType parse(String value) {
         switch (value) {
-            case Constants.TELEGRAM:
+            case Constants.StorageType.TELEGRAM:
                 return ContactType.TELEGRAM;
-            case Constants.WHATSAPP:
+            case Constants.StorageType.WHATSAPP:
                 return ContactType.WHATS_APP;
-            case Constants.VIBER:
+            case Constants.StorageType.VIBER:
                 return ContactType.VIBER;
-            case Constants.SIGNAL:
+            case Constants.StorageType.SIGNAL:
                 return ContactType.SIGNAL;
-            case Constants.THREEMA:
+            case Constants.StorageType.THREEMA:
                 return ContactType.THREEMA;
             default:
                 return null;
