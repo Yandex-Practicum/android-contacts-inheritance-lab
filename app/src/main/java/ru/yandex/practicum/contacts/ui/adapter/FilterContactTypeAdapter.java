@@ -16,8 +16,11 @@ import java.util.function.Consumer;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ItemFilterBinding;
+import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.main.FilterContactType;
 import ru.yandex.practicum.contacts.ui.model.FilterContactTypeUi;
+import ru.yandex.practicum.contacts.utils.model.ContactTypeUtils;
+import ru.yandex.practicum.contacts.utils.model.FilterContactTypeUtils;
 
 public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContactTypeAdapter.ViewHolder> {
 
@@ -69,31 +72,15 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
 
         public void bind(FilterContactTypeUi data) {
             this.data = data;
-            final int sortResId = resource(data.getContactType());
+            final int sortResId = FilterContactTypeUtils.getStringRes(data.getContactType());
             binding.text.setText(sortResId);
             binding.selected.setChecked(data.isSelected());
-        }
-
-        private int resource(FilterContactType contactType) {
-            switch (contactType) {
-                case ALL:
-                    return R.string.filter_contact_type_all;
-                case TELEGRAM:
-                    return R.string.filter_contact_type_telegram;
-                case WHATS_APP:
-                    return R.string.filter_contact_type_whatsapp;
-                case VIBER:
-                    return R.string.filter_contact_type_viber;
-                case SIGNAL:
-                    return R.string.filter_contact_type_signal;
-                case THREEMA:
-                    return R.string.filter_contact_type_threema;
-                case PHONE:
-                    return R.string.filter_contact_type_phone;
-                case EMAIL:
-                    return R.string.filter_contact_type_email;
-                default:
-                    throw new IllegalArgumentException("Not supported SortType");
+            if (data.getContactType() == FilterContactType.ALL){
+                binding.logo.setVisibility(View.GONE);
+            } else {
+                final ContactType contactType = FilterContactTypeUtils.toContactType(data.getContactType());
+                final int iconRes = ContactTypeUtils.getIconRes(contactType);
+                binding.logo.setImageResource(iconRes);
             }
         }
     }

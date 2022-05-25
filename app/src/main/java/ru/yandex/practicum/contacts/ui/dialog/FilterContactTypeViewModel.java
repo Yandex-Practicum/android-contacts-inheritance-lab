@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.main.FilterContactType;
 import ru.yandex.practicum.contacts.ui.model.FilterContactTypeUi;
+import ru.yandex.practicum.contacts.utils.model.ContactTypeUtils;
+import ru.yandex.practicum.contacts.utils.model.FilterContactTypeUtils;
 
 public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
 
@@ -65,7 +67,10 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
         final boolean allSelected = selectedFilterContactTypes.size() == ContactType.values().length;
         filterContactTypesUi.add(new FilterContactTypeUi(FilterContactType.ALL, allSelected));
         final List<FilterContactTypeUi> collect = Arrays.stream(ContactType.values())
-                .map(contactType -> new FilterContactTypeUi(toFilterContactType(contactType), selectedFilterContactTypes.contains(contactType)))
+                .map(contactType -> new FilterContactTypeUi(
+                        ContactTypeUtils.toFilterContactType(contactType),
+                        selectedFilterContactTypes.contains(contactType)
+                ))
                 .collect(Collectors.toList());
         filterContactTypesUi.addAll(collect);
         filterContactTypesLiveDate.postValue(filterContactTypesUi);
@@ -85,53 +90,11 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
             }
             return;
         }
-        final ContactType contactType = toContactType(type);
+        final ContactType contactType = FilterContactTypeUtils.toContactType(type);
         if (selectedFilterContactTypes.contains(contactType)) {
             selectedFilterContactTypes.remove(contactType);
         } else {
             selectedFilterContactTypes.add(contactType);
-        }
-    }
-
-    private ContactType toContactType(FilterContactType type) {
-        switch (type) {
-            case TELEGRAM:
-                return ContactType.TELEGRAM;
-            case WHATS_APP:
-                return ContactType.WHATS_APP;
-            case VIBER:
-                return ContactType.VIBER;
-            case SIGNAL:
-                return ContactType.SIGNAL;
-            case THREEMA:
-                return ContactType.THREEMA;
-            case PHONE:
-                return ContactType.PHONE;
-            case EMAIL:
-                return ContactType.EMAIL;
-            default:
-                throw new IllegalArgumentException("Not supported FilterContactType");
-        }
-    }
-
-    private FilterContactType toFilterContactType(ContactType type) {
-        switch (type) {
-            case TELEGRAM:
-                return FilterContactType.TELEGRAM;
-            case WHATS_APP:
-                return FilterContactType.WHATS_APP;
-            case VIBER:
-                return FilterContactType.VIBER;
-            case SIGNAL:
-                return FilterContactType.SIGNAL;
-            case THREEMA:
-                return FilterContactType.THREEMA;
-            case PHONE:
-                return FilterContactType.PHONE;
-            case EMAIL:
-                return FilterContactType.EMAIL;
-            default:
-                throw new IllegalArgumentException("Not supported ContactType");
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.model.ContactType;
+import ru.yandex.practicum.contacts.ui.main.FilterContactType;
 import ru.yandex.practicum.contacts.utils.Constants;
 
 public class ContactTypeUtils {
@@ -29,6 +30,27 @@ public class ContactTypeUtils {
                 return R.drawable.ic_type_email;
             default:
                 throw new IllegalArgumentException("Not supported type of ContactType");
+        }
+    }
+
+    public static FilterContactType toFilterContactType(ContactType type) {
+        switch (type) {
+            case TELEGRAM:
+                return FilterContactType.TELEGRAM;
+            case WHATS_APP:
+                return FilterContactType.WHATS_APP;
+            case VIBER:
+                return FilterContactType.VIBER;
+            case SIGNAL:
+                return FilterContactType.SIGNAL;
+            case THREEMA:
+                return FilterContactType.THREEMA;
+            case PHONE:
+                return FilterContactType.PHONE;
+            case EMAIL:
+                return FilterContactType.EMAIL;
+            default:
+                throw new IllegalArgumentException("Not supported ContactType");
         }
     }
 

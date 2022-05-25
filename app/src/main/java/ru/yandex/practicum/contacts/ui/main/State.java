@@ -25,14 +25,6 @@ public class State {
         this.allContacts = allContacts;
     }
 
-    public List<MergedContact> getLastFilteredContacts() {
-        return lastFilteredContacts;
-    }
-
-    public void setLastFilteredContacts(List<MergedContact> lastFilteredContacts) {
-        this.lastFilteredContacts = lastFilteredContacts;
-    }
-
     public SortType getSortType() {
         return sortType;
     }

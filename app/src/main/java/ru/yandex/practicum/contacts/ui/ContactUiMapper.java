@@ -13,8 +13,12 @@ public class ContactUiMapper {
         String displayName = (contact.getFirstName() + " " + contact.getSurname()).trim();
         String phone = PhoneUtils.format(contact.getPhone());
         if (TextUtils.isEmpty(displayName)) {
-            displayName = phone;
-            phone = "";
+            if (!TextUtils.isEmpty(phone)) {
+                displayName = phone;
+                phone = "";
+            } else {
+                displayName = contact.getEmail();
+            }
         }
         return new ContactUi(
                 displayName,

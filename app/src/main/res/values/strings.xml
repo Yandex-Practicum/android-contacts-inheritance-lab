@@ -32,6 +32,6 @@
     <string name="filter_contact_type_signal">Signal</string>
     <string name="filter_contact_type_threema">Threema</string>
     <string name="filter_contact_type_phone">Номер телефона</string>
-    <string name="filter_contact_type_email">E-mai</string>
+    <string name="filter_contact_type_email">E-mail</string>
 
 </resources>
