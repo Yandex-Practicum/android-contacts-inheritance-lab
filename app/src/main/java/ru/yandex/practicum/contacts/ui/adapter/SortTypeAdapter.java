@@ -71,7 +71,7 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
             this.data = data;
             final int sortResId = resource(data.getSortType());
             binding.text.setText(sortResId);
-            binding.done.setVisibility(data.isSelected() ? View.VISIBLE : View.GONE);
+            binding.selected.setVisibility(data.isSelected() ? View.VISIBLE : View.GONE);
         }
 
         private int resource(SortType sortType) {

@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -23,9 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
+import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
+import ru.yandex.practicum.contacts.ui.dialog.FilterContactTypeDialogFragment;
 import ru.yandex.practicum.contacts.ui.dialog.SortDialogFragment;
 import ru.yandex.practicum.contacts.ui.main.MainViewModel;
 import ru.yandex.practicum.contacts.ui.main.MenuClick;
@@ -37,6 +38,7 @@ import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 public class MainActivity extends AppCompatActivity {
 
     public static final String SORT_TAG = "SORT_TAG";
+    public static final String FILTER_TAG = "FILTER_TAG";
 
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
@@ -64,15 +66,17 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getUiStateLiveDate().observe(this, this::updateUiState);
 
         EditTextUtils.addTextListener(binding.searchLayout.searchText, query -> viewModel.updateSearchText(query.toString()));
-        EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search(query.toString()));
+        EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search());
         binding.searchLayout.resetButton.setOnClickListener(view -> clearSearch());
 
-        getSupportFragmentManager().setFragmentResultListener(SortDialogFragment.REQUEST_KEY, this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                final String key = requestKey;
-                final Bundle bundle = result;
-            }
+        getSupportFragmentManager().setFragmentResultListener(SortDialogFragment.REQUEST_KEY, this, (requestKey, result) -> {
+            final SortType newSortType = SortDialogFragment.from(result);
+            viewModel.updateSortType(newSortType);
+        });
+
+        getSupportFragmentManager().setFragmentResultListener(FilterContactTypeDialogFragment.REQUEST_KEY, this, (requestKey, result) -> {
+            final Set<ContactType> newFilterContactTypes = FilterContactTypeDialogFragment.from(result);
+            viewModel.updateFilterContactTypes(newFilterContactTypes);
         });
     }
 
@@ -87,20 +91,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_sort) {
-            SortDialogFragment.newInstance(SortType.BY_NAME).show(getSupportFragmentManager(), SORT_TAG);
+            viewModel.onMenuClick(MenuClick.SORT);
             return true;
         }
         if (id == R.id.menu_filter) {
-            toast(R.string.menu_filter);
+            viewModel.onMenuClick(MenuClick.FILTER);
             return true;
         }
         if (id == R.id.menu_search) {
             viewModel.onMenuClick(MenuClick.SEARCH);
-            toast(R.string.menu_search);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showSortDialog(SortType sortType) {
+        SortDialogFragment.newInstance(sortType).show(getSupportFragmentManager(), SORT_TAG);
+    }
+
+    private void showFilterContactTypeDialog(Set<ContactType> contactTypes) {
+        FilterContactTypeDialogFragment.newInstance(contactTypes).show(getSupportFragmentManager(), FILTER_TAG);
     }
 
     @Override
@@ -121,19 +132,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUiState(MainViewModel.UiState uiState) {
-        if (uiState.finishing) {
+        final Boolean finishActivity = uiState.actions.finishActivity.data;
+        if (finishActivity != null && finishActivity) {
             finish();
             return;
         }
         binding.searchLayout.getRoot().setVisibility(uiState.searchVisibility ? View.VISIBLE : View.GONE);
         binding.searchLayout.resetButton.setVisibility(uiState.resetSearchButtonVisibility ? View.VISIBLE : View.GONE);
+        if (uiState.actions.showSortTypeDialog.data != null) {
+            showSortDialog(uiState.actions.showSortTypeDialog.data);
+        }
+        final Set<ContactType> filterContactTypes = uiState.actions.showFilterContactTypeDialog.data;
+        if (filterContactTypes != null && filterContactTypes.size() > 0) {
+            showFilterContactTypeDialog(filterContactTypes);
+        }
         updateBadges(uiState);
     }
 
     private void updateBadges(MainViewModel.UiState uiState) {
-        updateBadge(uiState.sortBadge, R.id.menu_sort);
-        updateBadge(uiState.filterBadge, R.id.menu_filter);
-        updateBadge(uiState.searchBadge, R.id.menu_search);
+        updateBadge(uiState.menuBadges.sort, R.id.menu_sort);
+        updateBadge(uiState.menuBadges.filter, R.id.menu_filter);
+        updateBadge(uiState.menuBadges.search, R.id.menu_search);
     }
 
     private void updateBadge(MainViewModel.UiState.MenuBadge badge, @IdRes int menuItemId) {
@@ -169,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void clearSearch() {
         binding.searchLayout.searchText.setText("");
-        viewModel.search("");
+        viewModel.search();
     }
 
     private void toast(@StringRes int res) {

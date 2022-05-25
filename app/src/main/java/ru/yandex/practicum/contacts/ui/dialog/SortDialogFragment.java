@@ -43,8 +43,7 @@ public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewMo
     }
 
     private void iniViewModel() {
-        final Bundle bundle = getArguments();
-        final SortType defaultSortType = (SortType) (bundle != null ? bundle.getSerializable(ARG_SELECTED_SORT_TYPE) : SortType.BY_NAME);
+        final SortType defaultSortType = from(getArguments());
         viewModel.init(defaultSortType);
     }
 
@@ -65,6 +64,13 @@ public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewMo
         final SortDialogFragment fragment = new SortDialogFragment();
         fragment.setArguments(createBundle(selectedSortType));
         return fragment;
+    }
+
+    public static SortType from(@Nullable Bundle bundle) {
+        if (bundle == null) {
+            return SortType.BY_NAME;
+        }
+        return (SortType) bundle.getSerializable(ARG_SELECTED_SORT_TYPE);
     }
 
     private static Bundle createBundle(SortType sortType) {
