@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toStartOf="@+id/selected"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/sort_by_name" />
+        tools:text="@string/sort_by_name" />
 
     <ImageView
         android:id="@+id/selected"
