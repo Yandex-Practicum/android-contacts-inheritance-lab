@@ -2,8 +2,6 @@ package ru.yandex.practicum.contacts.utils.model;
 
 import android.text.TextUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

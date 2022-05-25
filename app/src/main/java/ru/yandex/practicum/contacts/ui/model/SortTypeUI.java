@@ -9,7 +9,7 @@ public class SortTypeUI {
     private final SortType sortType;
     private final boolean selected;
 
-    public SortTypeUI(@NonNull SortType sortType, @NonNull boolean selected) {
+    public SortTypeUI(@NonNull SortType sortType, boolean selected) {
         this.sortType = sortType;
         this.selected = selected;
     }

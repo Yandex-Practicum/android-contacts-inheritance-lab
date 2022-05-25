@@ -48,18 +48,6 @@ public class ContextUtils {
         }
     }
 
-    public static void query(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder, Consumer<Cursor> callback) {
-        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
-            if (cursor.moveToFirst()) {
-                do {
-                    callback.accept(cursor);
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception ignored) {
-
-        }
-    }
-
     @NonNull
     public static Drawable requireDrawable(Context context, @DrawableRes int id) {
         return Objects.requireNonNull(ContextCompat.getDrawable(context, id));

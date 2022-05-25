@@ -5,12 +5,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import ru.yandex.practicum.contacts.R;
@@ -70,6 +68,7 @@ public class FilterContactTypeDialogFragment extends BaseBottomSheetDialogFragme
         return fragment;
     }
 
+    @SuppressWarnings("unchecked")
     public static Set<ContactType> from(@Nullable Bundle bundle) {
         if (bundle == null) {
             return Collections.emptySet();

@@ -54,7 +54,7 @@ public class ContactRepository {
             String[] selectionArgs = new String[]{mimeType};
             String sortOrder = Data.RAW_CONTACT_ID;
 
-            ContextUtils.query(context, uri, projection, selection, selectionArgs, sortOrder, cursor -> {
+            ContextUtils.query(context, uri, projection, selection, selectionArgs, cursor -> {
                 String accountName = CursorUtils.getString(cursor, RawContacts.ACCOUNT_NAME);
 
                 int id = CursorUtils.getInteger(cursor, Data.RAW_CONTACT_ID);

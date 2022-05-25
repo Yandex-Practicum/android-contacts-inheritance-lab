@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.function.Consumer;
 
-import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ItemFilterBinding;
 import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.main.FilterContactType;

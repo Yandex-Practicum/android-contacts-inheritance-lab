@@ -12,7 +12,6 @@ import ru.yandex.practicum.contacts.model.MergedContact;
 public class State {
 
     private List<MergedContact> allContacts = Collections.emptyList();
-    private List<MergedContact> lastFilteredContacts = Collections.emptyList();
     private SortType sortType = SortType.BY_NAME;
     private Set<ContactType> contactTypes = new HashSet<>(Arrays.asList(ContactType.values()));
     private String query = "";
