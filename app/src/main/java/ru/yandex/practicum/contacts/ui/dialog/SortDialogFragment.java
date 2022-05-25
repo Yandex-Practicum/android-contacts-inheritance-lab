@@ -35,7 +35,7 @@ public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewMo
         binding.recycler.setAdapter(adapter);
 
         final DividerItemDecoration decoration = new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireActivity(), R.drawable.item_sort_type_decoration)));
+        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireActivity(), R.drawable.item_decoration_16dp)));
         binding.recycler.addItemDecoration(decoration);
 
         viewModel.getSortTypesLiveDate().observe(this, this::updateSortTypes);

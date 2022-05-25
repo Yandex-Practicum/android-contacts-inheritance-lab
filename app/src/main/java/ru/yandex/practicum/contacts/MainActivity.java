@@ -12,7 +12,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
@@ -32,6 +31,8 @@ import ru.yandex.practicum.contacts.ui.main.MainViewModel;
 import ru.yandex.practicum.contacts.ui.main.MenuClick;
 import ru.yandex.practicum.contacts.ui.main.SortType;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
+import ru.yandex.practicum.contacts.ui.widget.DividerItemDecoration;
+import ru.yandex.practicum.contacts.utils.android.ContextUtils;
 import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 
 @SuppressLint("UnsafeExperimentalUsageError")
@@ -57,8 +58,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ContactAdapter();
         binding.recycler.setAdapter(adapter);
 
-        final DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.item_contact_decoration)));
+        final DividerItemDecoration decoration = new DividerItemDecoration(this, R.drawable.item_decoration_72dp, DividerItemDecoration.VERTICAL);
         binding.recycler.addItemDecoration(decoration);
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);

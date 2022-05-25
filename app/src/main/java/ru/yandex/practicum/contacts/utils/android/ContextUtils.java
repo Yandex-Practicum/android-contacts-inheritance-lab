@@ -4,10 +4,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class ContextUtils {
@@ -54,5 +58,10 @@ public class ContextUtils {
         } catch (Exception ignored) {
 
         }
+    }
+
+    @NonNull
+    public static Drawable requireDrawable(Context context, @DrawableRes int id) {
+        return Objects.requireNonNull(ContextCompat.getDrawable(context, id));
     }
 }

@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +17,7 @@ import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.ui.adapter.FilterContactTypeAdapter;
 import ru.yandex.practicum.contacts.ui.model.FilterContactTypeUi;
+import ru.yandex.practicum.contacts.ui.widget.DividerItemDecoration;
 
 public class FilterContactTypeDialogFragment extends BaseBottomSheetDialogFragment<FilterContactTypeViewModel> {
 
@@ -37,8 +37,9 @@ public class FilterContactTypeDialogFragment extends BaseBottomSheetDialogFragme
         adapter = new FilterContactTypeAdapter(viewModel::onFilterTypeItemClick);
         binding.recycler.setAdapter(adapter);
 
-        final DividerItemDecoration decoration = new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireActivity(), R.drawable.item_sort_type_decoration)));
+        final DividerItemDecoration decoration = new DividerItemDecoration(
+                requireActivity(), R.drawable.item_decoration_16dp, R.drawable.item_decoration_72dp, DividerItemDecoration.VERTICAL
+        );
         binding.recycler.addItemDecoration(decoration);
 
         viewModel.getFilterContactTypesLiveDate().observe(this, this::updateFilterContactTypes);
