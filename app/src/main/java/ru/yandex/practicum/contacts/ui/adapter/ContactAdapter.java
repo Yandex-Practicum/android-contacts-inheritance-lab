@@ -53,6 +53,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         differ.submitList(items);
     }
 
+    public void setItems(List<ContactUi> items, @NonNull Runnable callback) {
+        differ.submitList(items, callback);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemContactBinding binding;

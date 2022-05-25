@@ -32,7 +32,6 @@ import ru.yandex.practicum.contacts.ui.main.MenuClick;
 import ru.yandex.practicum.contacts.ui.main.SortType;
 import ru.yandex.practicum.contacts.ui.model.ContactUi;
 import ru.yandex.practicum.contacts.ui.widget.DividerItemDecoration;
-import ru.yandex.practicum.contacts.utils.android.ContextUtils;
 import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 
 @SuppressLint("UnsafeExperimentalUsageError")
@@ -120,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateContacts(List<ContactUi> contacts) {
-        adapter.setItems(contacts);
-        binding.recycler.scrollToPosition(0);
+        adapter.setItems(contacts, () -> binding.recycler.scrollToPosition(0));
         if (contacts.size() > 0) {
             binding.recycler.setVisibility(View.VISIBLE);
             binding.nothingFound.setVisibility(View.GONE);
