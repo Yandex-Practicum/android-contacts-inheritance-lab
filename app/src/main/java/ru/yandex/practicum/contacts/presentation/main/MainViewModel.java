@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.main;
+package ru.yandex.practicum.contacts.presentation.main;
 
 import android.app.Application;
 
@@ -19,11 +19,12 @@ import ru.yandex.practicum.contacts.model.Contact;
 import ru.yandex.practicum.contacts.model.ContactSource;
 import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.model.MergedContact;
-import ru.yandex.practicum.contacts.repository.ContactMerger;
+import ru.yandex.practicum.contacts.interactor.ContactMerger;
 import ru.yandex.practicum.contacts.repository.ContactRepository;
 import ru.yandex.practicum.contacts.repository.ContactSourceRepository;
-import ru.yandex.practicum.contacts.ui.ContactUiMapper;
-import ru.yandex.practicum.contacts.ui.model.ContactUi;
+import ru.yandex.practicum.contacts.mapper.ContactUiMapper;
+import ru.yandex.practicum.contacts.presentation.main.model.MenuClick;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 import ru.yandex.practicum.contacts.utils.java.ThreadUtils;
 import ru.yandex.practicum.contacts.utils.model.MergedContactUtils;
 
@@ -37,7 +38,7 @@ public class MainViewModel extends AndroidViewModel {
     private final MutableLiveData<List<ContactUi>> contactsLiveDate = new MutableLiveData<>();
     private final MutableLiveData<UiState> uiStateLiveDate = new MutableLiveData<>();
 
-    private final State state = new State();
+    private final MainState state = new MainState();
     private final UiState uiState = new UiState();
 
     public MainViewModel(@NonNull Application application) {

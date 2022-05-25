@@ -1,8 +1,6 @@
-package ru.yandex.practicum.contacts.ui.model;
+package ru.yandex.practicum.contacts.presentation.filter.model;
 
 import androidx.annotation.NonNull;
-
-import ru.yandex.practicum.contacts.ui.main.FilterContactType;
 
 public class FilterContactTypeUi {
 

@@ -1,9 +1,9 @@
-package ru.yandex.practicum.contacts.ui;
+package ru.yandex.practicum.contacts.mapper;
 
 import android.text.TextUtils;
 
 import ru.yandex.practicum.contacts.model.MergedContact;
-import ru.yandex.practicum.contacts.ui.model.ContactUi;
+import ru.yandex.practicum.contacts.presentation.main.ContactUi;
 import ru.yandex.practicum.contacts.utils.model.MergedContactUtils;
 import ru.yandex.practicum.contacts.utils.model.PhoneUtils;
 

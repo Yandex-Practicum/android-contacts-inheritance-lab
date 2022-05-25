@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.dialog;
+package ru.yandex.practicum.contacts.presentation.base;
 
 import android.app.Dialog;
 import android.os.Bundle;

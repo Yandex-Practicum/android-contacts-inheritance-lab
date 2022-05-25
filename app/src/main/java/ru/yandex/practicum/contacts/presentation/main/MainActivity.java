@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts;
+package ru.yandex.practicum.contacts.presentation.main;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -22,15 +22,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ActivityMainBinding;
 import ru.yandex.practicum.contacts.model.ContactType;
-import ru.yandex.practicum.contacts.ui.adapter.ContactAdapter;
-import ru.yandex.practicum.contacts.ui.dialog.FilterContactTypeDialogFragment;
-import ru.yandex.practicum.contacts.ui.dialog.SortDialogFragment;
-import ru.yandex.practicum.contacts.ui.main.MainViewModel;
-import ru.yandex.practicum.contacts.ui.main.MenuClick;
-import ru.yandex.practicum.contacts.ui.main.SortType;
-import ru.yandex.practicum.contacts.ui.model.ContactUi;
+import ru.yandex.practicum.contacts.presentation.filter.FilterContactTypeDialogFragment;
+import ru.yandex.practicum.contacts.presentation.sort.SortDialogFragment;
+import ru.yandex.practicum.contacts.presentation.main.model.MenuClick;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 import ru.yandex.practicum.contacts.ui.widget.DividerItemDecoration;
 import ru.yandex.practicum.contacts.utils.widget.EditTextUtils;
 

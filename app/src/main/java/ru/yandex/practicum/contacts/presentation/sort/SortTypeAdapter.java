@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.adapter;
+package ru.yandex.practicum.contacts.presentation.sort;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +16,7 @@ import java.util.function.Consumer;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ItemSortBinding;
-import ru.yandex.practicum.contacts.ui.main.SortType;
-import ru.yandex.practicum.contacts.ui.model.SortTypeUI;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
 public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHolder> {
 

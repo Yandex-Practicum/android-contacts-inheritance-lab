@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.repository;
+package ru.yandex.practicum.contacts.utils.android;
 
 import android.os.Handler;
 import android.os.Looper;

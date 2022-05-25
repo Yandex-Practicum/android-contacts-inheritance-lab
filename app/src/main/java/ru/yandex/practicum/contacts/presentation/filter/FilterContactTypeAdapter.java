@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.adapter;
+package ru.yandex.practicum.contacts.presentation.filter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +16,8 @@ import java.util.function.Consumer;
 
 import ru.yandex.practicum.contacts.databinding.ItemFilterBinding;
 import ru.yandex.practicum.contacts.model.ContactType;
-import ru.yandex.practicum.contacts.ui.main.FilterContactType;
-import ru.yandex.practicum.contacts.ui.model.FilterContactTypeUi;
+import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactType;
+import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactTypeUi;
 import ru.yandex.practicum.contacts.utils.model.ContactTypeUtils;
 import ru.yandex.practicum.contacts.utils.model.FilterContactTypeUtils;
 

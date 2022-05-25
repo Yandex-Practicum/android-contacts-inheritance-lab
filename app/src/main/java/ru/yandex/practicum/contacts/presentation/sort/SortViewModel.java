@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.dialog;
+package ru.yandex.practicum.contacts.presentation.sort;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import ru.yandex.practicum.contacts.ui.main.SortType;
-import ru.yandex.practicum.contacts.ui.model.SortTypeUI;
+import ru.yandex.practicum.contacts.presentation.base.BaseBottomSheetViewModel;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
 public class SortViewModel extends BaseBottomSheetViewModel {
 

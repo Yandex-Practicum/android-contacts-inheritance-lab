@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.model.ContactType;
-import ru.yandex.practicum.contacts.ui.main.FilterContactType;
+import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactType;
 import ru.yandex.practicum.contacts.utils.Constants;
 
 public class ContactTypeUtils {

@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.main;
+package ru.yandex.practicum.contacts.presentation.filter.model;
 
 public enum FilterContactType {
     ALL,

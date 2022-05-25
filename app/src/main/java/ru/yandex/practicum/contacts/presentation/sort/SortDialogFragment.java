@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.dialog;
+package ru.yandex.practicum.contacts.presentation.sort;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 import ru.yandex.practicum.contacts.R;
-import ru.yandex.practicum.contacts.ui.adapter.SortTypeAdapter;
-import ru.yandex.practicum.contacts.ui.main.SortType;
-import ru.yandex.practicum.contacts.ui.model.SortTypeUI;
+import ru.yandex.practicum.contacts.presentation.base.BaseBottomSheetDialogFragment;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
 public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewModel> {
 

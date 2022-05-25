@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.main;
+package ru.yandex.practicum.contacts.presentation.sort.model;
 
 public enum SortType {
     BY_NAME,

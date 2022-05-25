@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.adapter;
+package ru.yandex.practicum.contacts.presentation.main;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -22,7 +22,6 @@ import java.util.Objects;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ItemContactBinding;
-import ru.yandex.practicum.contacts.ui.model.ContactUi;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 

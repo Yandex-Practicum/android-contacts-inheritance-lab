@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import java.util.function.Consumer;
 
-import ru.yandex.practicum.contacts.repository.Debouncer;
+import ru.yandex.practicum.contacts.utils.android.Debouncer;
 
 public class EditTextUtils {
 

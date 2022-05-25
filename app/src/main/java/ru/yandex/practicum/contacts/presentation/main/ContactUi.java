@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.model;
+package ru.yandex.practicum.contacts.presentation.main;
 
 import androidx.annotation.NonNull;
 

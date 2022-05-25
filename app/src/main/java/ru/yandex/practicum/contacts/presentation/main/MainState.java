@@ -1,4 +1,4 @@
-package ru.yandex.practicum.contacts.ui.main;
+package ru.yandex.practicum.contacts.presentation.main;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,8 +8,9 @@ import java.util.Set;
 
 import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.model.MergedContact;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
-public class State {
+public class MainState {
 
     private List<MergedContact> allContacts = Collections.emptyList();
     private SortType sortType = SortType.BY_NAME;

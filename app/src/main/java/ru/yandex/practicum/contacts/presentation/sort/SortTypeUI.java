@@ -1,8 +1,8 @@
-package ru.yandex.practicum.contacts.ui.model;
+package ru.yandex.practicum.contacts.presentation.sort;
 
 import androidx.annotation.NonNull;
 
-import ru.yandex.practicum.contacts.ui.main.SortType;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
 public class SortTypeUI {
 
