@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getContactsLiveDate().observe(this, this::updateContacts);
         viewModel.getUiStateLiveDate().observe(this, this::updateUiState);
 
+        createBadges();
         EditTextUtils.addTextListener(binding.searchLayout.searchText, query -> viewModel.updateSearchText(query.toString()));
         EditTextUtils.debounce(binding.searchLayout.searchText, query -> viewModel.search());
         binding.searchLayout.resetButton.setOnClickListener(view -> clearSearch());
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        createBadges();
+        attachBadges();
         return true;
     }
 
@@ -170,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
         badges.put(R.id.menu_sort, createBadge());
         badges.put(R.id.menu_filter, createBadge());
         badges.put(R.id.menu_search, createBadge());
+    }
 
+    private void attachBadges(){
         for (Map.Entry<Integer, BadgeDrawable> entry : badges.entrySet()) {
             BadgeUtils.attachBadgeDrawable(entry.getValue(), binding.toolbar, entry.getKey());
         }
