@@ -47,14 +47,6 @@
         <item name="elevation">0dp</item>
     </style>
 
-    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_height">?listPreferredItemHeight</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:filterTouchesWhenObscured">true</item>
-    </style>
-
     <style name="Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textColor">@color/color_white</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
