@@ -6,11 +6,4 @@
         <attr name="iconsCount" format="integer" />
         <attr name="iconOffset" format="dimension" />
     </declare-styleable>
-
-    <declare-styleable name="FlatButton">
-        <attr name="android:text" format="string" />
-        <attr name="android:background" format="reference|color" />
-        <attr name="android:textColor" format="reference|color" />
-    </declare-styleable>
-
 </resources>
