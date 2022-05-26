@@ -1,6 +1,7 @@
 package ru.yandex.practicum.contacts.presentation.main;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import ru.yandex.practicum.contacts.model.Contact;
@@ -145,16 +147,64 @@ public class MainViewModel extends AndroidViewModel {
     private Comparator<MergedContact> createComparator(SortType type) {
         switch (type) {
             case BY_NAME:
-                return Comparator.comparing(MergedContact::getFirstName);
+                return createComparator(MergedContact::getFirstName)
+                        .thenComparing(createComparator(MergedContact::getSurname))
+                        .thenComparing(createComparator(MergedContact::getNormalizedNumber))
+                        .thenComparing(createComparator(MergedContact::getEmail));
             case BY_NAME_REVERSED:
-                return Comparator.comparing(MergedContact::getFirstName).reversed();
+                return createReversedComparator(MergedContact::getFirstName)
+                        .thenComparing(createReversedComparator(MergedContact::getSurname))
+                        .thenComparing(createReversedComparator(MergedContact::getNormalizedNumber))
+                        .thenComparing(createReversedComparator(MergedContact::getEmail));
             case BY_SURNAME:
-                return Comparator.comparing(MergedContact::getSurname);
+                return createComparator(MergedContact::getSurname)
+                        .thenComparing(createComparator(MergedContact::getFirstName))
+                        .thenComparing(createComparator(MergedContact::getNormalizedNumber))
+                        .thenComparing(createComparator(MergedContact::getEmail));
             case BY_SURNAME_REVERSED:
-                return Comparator.comparing(MergedContact::getSurname).reversed();
+                return createReversedComparator(MergedContact::getSurname)
+                        .thenComparing(createReversedComparator(MergedContact::getFirstName))
+                        .thenComparing(createReversedComparator(MergedContact::getNormalizedNumber))
+                        .thenComparing(createReversedComparator(MergedContact::getEmail));
             default:
                 throw new IllegalArgumentException("Not supported SortType");
         }
+    }
+
+    private Comparator<MergedContact> createComparator(Function<MergedContact, String> keyExtractor) {
+        return (left, right) -> {
+            final String leftField = keyExtractor.apply(left);
+            final String rightField = keyExtractor.apply(right);
+            if (!TextUtils.isEmpty(leftField) && !TextUtils.isEmpty(rightField)) {
+                return leftField.compareTo(rightField);
+            }
+            // Empty lines should be after
+            if (TextUtils.isEmpty(leftField) && !TextUtils.isEmpty(rightField)) {
+                return 1;
+            }
+            if (!TextUtils.isEmpty(leftField) && TextUtils.isEmpty(rightField)) {
+                return -1;
+            }
+            return 0;
+        };
+    }
+
+    private Comparator<MergedContact> createReversedComparator(Function<MergedContact, String> keyExtractor) {
+        return (left, right) -> {
+            final String leftField = keyExtractor.apply(left);
+            final String rightField = keyExtractor.apply(right);
+            if (!TextUtils.isEmpty(leftField) && !TextUtils.isEmpty(rightField)) {
+                return rightField.compareTo(leftField);
+            }
+            // Empty lines should be after
+            if (TextUtils.isEmpty(leftField) && !TextUtils.isEmpty(rightField)) {
+                return 1;
+            }
+            if (!TextUtils.isEmpty(leftField) && TextUtils.isEmpty(rightField)) {
+                return -1;
+            }
+            return 0;
+        };
     }
 
     private void updateUiState() {
