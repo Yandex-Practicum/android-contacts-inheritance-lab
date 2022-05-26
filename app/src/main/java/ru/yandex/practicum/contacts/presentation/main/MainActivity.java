@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
+        binding.toolbar.setTitleTextAppearance(this, R.style.Toolbar_Title);
 
         adapter = new ContactAdapter();
         binding.recycler.setAdapter(adapter);
