@@ -3,5 +3,5 @@
     <dimen name="stack_image_view_icon_size">26dp</dimen>
     <dimen name="stack_image_view_icon_offset">22dp</dimen>
 
-    <dimen name="mtrl_badge_radius" tools:override="true">@dimen/mtrl_badge_with_text_radius</dimen>
+    <dimen name="mtrl_badge_radius" tools:override="true">7dp</dimen>
 </resources>

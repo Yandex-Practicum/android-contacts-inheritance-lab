@@ -91,11 +91,13 @@ public class MainViewModel extends AndroidViewModel {
 
     public void updateSortType(SortType sortType) {
         state.setSortType(sortType);
+        updateBadges();
         mapContactsAndUpdate();
     }
 
     public void updateFilterContactTypes(Set<ContactType> filterContactTypes) {
         state.setContactTypes(filterContactTypes);
+        updateBadges();
         mapContactsAndUpdate();
     }
 
@@ -111,6 +113,22 @@ public class MainViewModel extends AndroidViewModel {
     public void updateSearchText(String query) {
         state.setQuery(query);
         uiState.resetSearchButtonVisibility = state.getQuery().length() != 0;
+        updateUiState();
+    }
+
+    private void updateBadges() {
+        if (state.getSortType() != state.getDefaultSortType()) {
+            uiState.menuBadges.sort = new UiState.MenuBadge(0);
+        } else {
+            uiState.menuBadges.sort = null;
+        }
+
+        if (!state.getContactTypes().equals(state.getDefaultContactTypes())) {
+            uiState.menuBadges.filter = new UiState.MenuBadge(state.getContactTypes().size());
+        } else {
+            uiState.menuBadges.filter = null;
+        }
+
         updateUiState();
     }
 
@@ -168,7 +186,7 @@ public class MainViewModel extends AndroidViewModel {
             public Action<Set<ContactType>> showFilterContactTypeDialog = new Action<>(Collections.emptySet());
 
             @NonNull
-            public Actions copy(){
+            public Actions copy() {
                 final Actions copy = new Actions();
                 copy.finishActivity = new Action<>(finishActivity.data);
                 copy.showSortTypeDialog = new Action<>(showSortTypeDialog.data);
@@ -201,7 +219,7 @@ public class MainViewModel extends AndroidViewModel {
             @Nullable
             public MenuBadge search = null;
 
-            public MenuBadges copy(){
+            public MenuBadges copy() {
                 final MenuBadges copy = new MenuBadges();
                 copy.sort = sort == null ? null : new MenuBadge(sort.value);
                 copy.filter = filter == null ? null : new MenuBadge(filter.value);
