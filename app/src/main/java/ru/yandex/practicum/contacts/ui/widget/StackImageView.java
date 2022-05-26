@@ -12,7 +12,6 @@ import java.util.List;
 
 import ru.yandex.practicum.contacts.R;
 
-
 public abstract class StackImageView<T> extends FrameLayout {
 
     protected static final int DEFAULT_COUNT = 3;
