@@ -59,12 +59,12 @@ public class SortViewModel extends BaseBottomSheetViewModel {
         final List<SortTypeUI> sortTypesUi = Arrays.stream(sortTypes)
                 .map(sortType -> new SortTypeUI(sortType, Objects.equals(sortType, selectedSortType)))
                 .collect(Collectors.toList());
-        sortTypesLiveDate.postValue(sortTypesUi);
+        sortTypesLiveDate.setValue(sortTypesUi);
     }
 
     private void updateUiState() {
         uiState.isApplyEnable = defaultSortType != selectedSortType;
-        uiStateLiveDate.postValue(uiState);
+        uiStateLiveDate.setValue(uiState);
     }
 
     static class UiState {

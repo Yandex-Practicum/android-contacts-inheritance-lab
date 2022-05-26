@@ -71,12 +71,12 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
                 ))
                 .collect(Collectors.toList());
         filterContactTypesUi.addAll(collect);
-        filterContactTypesLiveDate.postValue(filterContactTypesUi);
+        filterContactTypesLiveDate.setValue(filterContactTypesUi);
     }
 
     private void updateUiState() {
         uiState.isApplyEnable = !defaultFilterContactTypes.equals(selectedFilterContactTypes) && !selectedFilterContactTypes.isEmpty();
-        uiStateLiveDate.postValue(uiState);
+        uiStateLiveDate.setValue(uiState);
     }
 
     private void updateSelectedContactTypes(FilterContactType type) {

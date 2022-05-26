@@ -158,7 +158,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     private void updateUiState() {
-        uiStateLiveDate.postValue(uiState.copy());
+        uiStateLiveDate.setValue(uiState.copy());
         uiState.actions.clear();
     }
 
