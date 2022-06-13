@@ -73,15 +73,15 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
             binding.selected.setVisibility(data.isSelected() ? View.VISIBLE : View.GONE);
         }
 
-        private int resource(SortType sortType) {
+        private int resource(String sortType) {
             switch (sortType) {
-                case BY_NAME:
+                case SortType.BY_NAME:
                     return R.string.sort_by_name;
-                case BY_NAME_REVERSED:
+                case SortType.BY_NAME_REVERSED:
                     return R.string.sort_by_name_reversed;
-                case BY_SURNAME:
+                case SortType.BY_SURNAME:
                     return R.string.sort_by_surname;
-                case BY_SURNAME_REVERSED:
+                case SortType.BY_SURNAME_REVERSED:
                     return R.string.sort_by_surname_reversed;
                 default:
                     throw new IllegalArgumentException("Not supported SortType");

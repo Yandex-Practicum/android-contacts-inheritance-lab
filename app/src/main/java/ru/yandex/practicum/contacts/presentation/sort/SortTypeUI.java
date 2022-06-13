@@ -6,15 +6,15 @@ import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
 public class SortTypeUI {
 
-    private final SortType sortType;
+    private final String sortType;
     private final boolean selected;
 
-    public SortTypeUI(@NonNull SortType sortType, boolean selected) {
+    public SortTypeUI(@NonNull String sortType, boolean selected) {
         this.sortType = sortType;
         this.selected = selected;
     }
 
-    public SortType getSortType() {
+    public String getSortType() {
         return sortType;
     }
 

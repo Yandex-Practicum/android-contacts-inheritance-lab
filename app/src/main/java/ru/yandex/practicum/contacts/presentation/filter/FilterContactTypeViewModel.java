@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -79,8 +80,8 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
         uiStateLiveDate.setValue(uiState);
     }
 
-    private void updateSelectedContactTypes(FilterContactType type) {
-        if (type == FilterContactType.ALL) {
+    private void updateSelectedContactTypes(String type) {
+        if (Objects.equals(type, FilterContactType.ALL)) {
             if (selectedFilterContactTypes.size() == ContactType.values().length) {
                 selectedFilterContactTypes.clear();
             } else {

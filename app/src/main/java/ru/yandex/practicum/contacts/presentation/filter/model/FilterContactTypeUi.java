@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 
 public class FilterContactTypeUi {
 
-    private final FilterContactType contactType;
+    private final String contactType;
     private final boolean selected;
 
-    public FilterContactTypeUi(@NonNull FilterContactType contactType, boolean selected) {
+    public FilterContactTypeUi(@NonNull String contactType, boolean selected) {
         this.contactType = contactType;
         this.selected = selected;
     }
 
-    public FilterContactType getContactType() {
+    public String getContactType() {
         return contactType;
     }
 
@@ -28,7 +28,7 @@ public class FilterContactTypeUi {
         FilterContactTypeUi that = (FilterContactTypeUi) o;
 
         if (selected != that.selected) return false;
-        return contactType == that.contactType;
+        return contactType.equals(that.contactType);
     }
 
     @Override

@@ -3,17 +3,17 @@ package ru.yandex.practicum.contacts.presentation.sort;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-
 import java.util.List;
 import java.util.Objects;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.presentation.base.BaseBottomSheetDialogFragment;
 import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewModel> {
 
@@ -42,7 +42,7 @@ public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewMo
     }
 
     private void iniViewModel() {
-        final SortType defaultSortType = from(getArguments());
+        final String defaultSortType = from(getArguments());
         viewModel.init(defaultSortType);
     }
 
@@ -59,22 +59,22 @@ public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewMo
         }
     }
 
-    public static SortDialogFragment newInstance(SortType selectedSortType) {
+    public static SortDialogFragment newInstance(String selectedSortType) {
         final SortDialogFragment fragment = new SortDialogFragment();
         fragment.setArguments(createBundle(selectedSortType));
         return fragment;
     }
 
-    public static SortType from(@Nullable Bundle bundle) {
+    public static String from(@Nullable Bundle bundle) {
         if (bundle == null) {
             return SortType.BY_NAME;
         }
-        return (SortType) bundle.getSerializable(ARG_SELECTED_SORT_TYPE);
+        return bundle.getString(ARG_SELECTED_SORT_TYPE);
     }
 
-    private static Bundle createBundle(SortType sortType) {
+    private static Bundle createBundle(String sortType) {
         final Bundle bundle = new Bundle();
-        bundle.putSerializable(ARG_SELECTED_SORT_TYPE, sortType);
+        bundle.putString(ARG_SELECTED_SORT_TYPE, sortType);
         return bundle;
     }
 }
