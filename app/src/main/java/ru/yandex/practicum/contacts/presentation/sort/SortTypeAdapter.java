@@ -68,7 +68,7 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
 
         public void bind(SortTypeUI data) {
             this.data = data;
-            final int sortResId = resource(data.getSortType());
+            final int sortResId = resource(data.getType());
             binding.text.setText(sortResId);
             binding.selected.setVisibility(data.isSelected() ? View.VISIBLE : View.GONE);
         }
@@ -93,7 +93,7 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
 
         @Override
         public boolean areItemsTheSame(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return oldItem.getSortType() == newItem.getSortType();
+            return oldItem.getType() == newItem.getType();
         }
 
         @Override

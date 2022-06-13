@@ -1,6 +1,6 @@
 package ru.yandex.practicum.contacts.presentation.filter;
 
-import androidx.lifecycle.MutableLiveData;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +17,8 @@ import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactType;
 import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactTypeUi;
 import ru.yandex.practicum.contacts.utils.model.ContactTypeUtils;
 import ru.yandex.practicum.contacts.utils.model.FilterContactTypeUtils;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
 
@@ -35,7 +37,7 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
     }
 
     public void onFilterTypeItemClick(FilterContactTypeUi filterContactType) {
-        updateSelectedContactTypes(filterContactType.getContactType());
+        updateSelectedContactTypes(filterContactType.getType());
         updateFilterContactTypes();
         updateUiState();
     }
@@ -59,6 +61,10 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
 
     public MutableLiveData<UiState> getUiStateLiveDate() {
         return uiStateLiveDate;
+    }
+
+    public void log(String message) {
+        Log.d("FilterContactTypeViewModel", message);
     }
 
     private void updateFilterContactTypes() {
@@ -98,6 +104,7 @@ public class FilterContactTypeViewModel extends BaseBottomSheetViewModel {
     }
 
     static class UiState {
+
         public boolean isApplyEnable = false;
         public Set<ContactType> newSelectedContactTypes = Collections.emptySet();
     }

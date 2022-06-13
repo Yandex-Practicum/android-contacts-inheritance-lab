@@ -30,7 +30,10 @@ public class SortDialogFragment extends BaseBottomSheetDialogFragment<SortViewMo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         iniViewModel();
-        adapter = new SortTypeAdapter(viewModel::onSortTypeItemClick);
+        adapter = new SortTypeAdapter((sortType) -> {
+            viewModel.onSortTypeItemClick(sortType);
+            viewModel.log(sortType.createLogMessage());
+        });
         binding.recycler.setAdapter(adapter);
 
         final DividerItemDecoration decoration = new DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL);

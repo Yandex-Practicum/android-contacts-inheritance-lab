@@ -73,13 +73,13 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
 
         public void bind(FilterContactTypeUi data) {
             this.data = data;
-            final int sortResId = FilterContactTypeUtils.getStringRes(data.getContactType());
+            final int sortResId = FilterContactTypeUtils.getStringRes(data.getType());
             binding.text.setText(sortResId);
             binding.selected.setChecked(data.isSelected());
-            if (Objects.equals(data.getContactType(), FilterContactType.ALL)){
+            if (Objects.equals(data.getType(), FilterContactType.ALL)){
                 binding.logo.setVisibility(View.GONE);
             } else {
-                final ContactType contactType = FilterContactTypeUtils.toContactType(data.getContactType());
+                final ContactType contactType = FilterContactTypeUtils.toContactType(data.getType());
                 final int iconRes = ContactTypeUtils.getIconRes(contactType);
                 binding.logo.setVisibility(View.VISIBLE);
                 binding.logo.setImageResource(iconRes);
@@ -91,7 +91,7 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
 
         @Override
         public boolean areItemsTheSame(@NonNull FilterContactTypeUi oldItem, @NonNull FilterContactTypeUi newItem) {
-            return Objects.equals(oldItem.getContactType(), newItem.getContactType());
+            return Objects.equals(oldItem.getType(), newItem.getType());
         }
 
         @Override

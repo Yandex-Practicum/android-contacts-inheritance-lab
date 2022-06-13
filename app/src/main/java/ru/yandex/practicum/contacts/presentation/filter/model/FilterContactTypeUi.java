@@ -4,20 +4,24 @@ import androidx.annotation.NonNull;
 
 public class FilterContactTypeUi {
 
-    private final String contactType;
+    private final String type;
     private final boolean selected;
 
-    public FilterContactTypeUi(@NonNull String contactType, boolean selected) {
-        this.contactType = contactType;
+    public FilterContactTypeUi(@NonNull String type, boolean selected) {
+        this.type = type;
         this.selected = selected;
     }
 
-    public String getContactType() {
-        return contactType;
+    public String getType() {
+        return type;
     }
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public String createLogMessage() {
+        return "Выбран фильтр: " + type;
     }
 
     @Override
@@ -28,12 +32,12 @@ public class FilterContactTypeUi {
         FilterContactTypeUi that = (FilterContactTypeUi) o;
 
         if (selected != that.selected) return false;
-        return contactType.equals(that.contactType);
+        return type.equals(that.type);
     }
 
     @Override
     public int hashCode() {
-        int result = contactType.hashCode();
+        int result = type.hashCode();
         result = 31 * result + (selected ? 1 : 0);
         return result;
     }
