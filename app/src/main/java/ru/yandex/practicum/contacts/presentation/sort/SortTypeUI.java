@@ -5,11 +5,11 @@ import androidx.annotation.NonNull;
 public class SortTypeUI {
 
     private final String type;
-    private final boolean selected;
+    private final boolean isSelected;
 
-    public SortTypeUI(@NonNull String type, boolean selected) {
+    public SortTypeUI(@NonNull String type, boolean isSelected) {
         this.type = type;
-        this.selected = selected;
+        this.isSelected = isSelected;
     }
 
     public String getType() {
@@ -17,7 +17,7 @@ public class SortTypeUI {
     }
 
     public boolean isSelected() {
-        return selected;
+        return isSelected;
     }
 
     public String createLogMessage() {
@@ -35,7 +35,7 @@ public class SortTypeUI {
 
         SortTypeUI that = (SortTypeUI) o;
 
-        if (selected != that.selected) {
+        if (isSelected != that.isSelected) {
             return false;
         }
         return type.equals(that.type);
@@ -44,7 +44,7 @@ public class SortTypeUI {
     @Override
     public int hashCode() {
         int result = type.hashCode();
-        result = 31 * result + (selected ? 1 : 0);
+        result = 31 * result + (isSelected ? 1 : 0);
         return result;
     }
 }

@@ -5,11 +5,11 @@ import androidx.annotation.NonNull;
 public class FilterContactTypeUi {
 
     private final String type;
-    private final boolean selected;
+    private final boolean isSelected;
 
-    public FilterContactTypeUi(@NonNull String type, boolean selected) {
+    public FilterContactTypeUi(@NonNull String type, boolean isSelected) {
         this.type = type;
-        this.selected = selected;
+        this.isSelected = isSelected;
     }
 
     public String getType() {
@@ -17,7 +17,7 @@ public class FilterContactTypeUi {
     }
 
     public boolean isSelected() {
-        return selected;
+        return isSelected;
     }
 
     public String createLogMessage() {
@@ -31,14 +31,14 @@ public class FilterContactTypeUi {
 
         FilterContactTypeUi that = (FilterContactTypeUi) o;
 
-        if (selected != that.selected) return false;
+        if (isSelected != that.isSelected) return false;
         return type.equals(that.type);
     }
 
     @Override
     public int hashCode() {
         int result = type.hashCode();
-        result = 31 * result + (selected ? 1 : 0);
+        result = 31 * result + (isSelected ? 1 : 0);
         return result;
     }
 }
