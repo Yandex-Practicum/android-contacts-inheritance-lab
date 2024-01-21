@@ -2,22 +2,17 @@ package ru.yandex.practicum.contacts.presentation.filter.model;
 
 import androidx.annotation.NonNull;
 
-public class FilterContactTypeUi {
+import ru.yandex.practicum.contacts.presentation.base.ContactsOrderTypeUi;
 
-    private final String type;
-    private final boolean isSelected;
+public class FilterContactTypeUi extends ContactsOrderTypeUi {
 
     public FilterContactTypeUi(@NonNull String type, boolean isSelected) {
-        this.type = type;
-        this.isSelected = isSelected;
+        super(type,isSelected);
     }
 
-    public String getType() {
-        return type;
-    }
-
+    @Override
     public boolean isSelected() {
-        return isSelected;
+        return super.isSelected();
     }
 
     public String createLogMessage() {
@@ -42,3 +37,4 @@ public class FilterContactTypeUi {
         return result;
     }
 }
+
