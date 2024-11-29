@@ -75,7 +75,7 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
             this.data = data;
             final int sortResId = FilterContactTypeUtils.getStringRes(data.getType());
             binding.text.setText(sortResId);
-            binding.selected.setChecked(data.isSelected());
+            binding.selected.setChecked(data.getIsSelected());
             if (Objects.equals(data.getType(), FilterContactType.ALL)){
                 binding.logo.setVisibility(View.GONE);
             } else {
