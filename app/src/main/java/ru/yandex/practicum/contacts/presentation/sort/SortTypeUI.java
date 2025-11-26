@@ -2,7 +2,9 @@ package ru.yandex.practicum.contacts.presentation.sort;
 
 import androidx.annotation.NonNull;
 
-public class SortTypeUI {
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
+
+public abstract class SortTypeUI implements ListDiffInterface {
 
     private final String type;
     private final boolean isSelected;
