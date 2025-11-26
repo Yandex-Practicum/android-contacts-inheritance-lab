@@ -63,7 +63,12 @@ public class SortViewModel extends BaseBottomSheetViewModel {
     private void updateSortTypes() {
         final String[] sortTypes = SortType.values();
         final List<SortTypeUI> sortTypesUi = Arrays.stream(sortTypes)
-                .map(sortType -> new SortTypeUI(sortType, Objects.equals(sortType, selectedSortType)))
+                .map(sortType -> new SortTypeUI(sortType, Objects.equals(sortType, selectedSortType)) {
+                    @Override
+                    public boolean theSameAs(Object other) {
+                        return false;
+                    }
+                })
                 .collect(Collectors.toList());
         sortTypesLiveDate.setValue(sortTypesUi);
     }
