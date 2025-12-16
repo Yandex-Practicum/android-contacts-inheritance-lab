@@ -1,4 +1,7 @@
 package ru.yandex.practicum.contacts.presentation.base;
+
+import androidx.annotation.NonNull;
+
 public abstract class ContactsOrderTypeUi {
 
     private final String type;
