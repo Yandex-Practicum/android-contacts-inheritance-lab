@@ -1,8 +1,9 @@
 package ru.yandex.practicum.contacts.presentation.sort;
 
 import androidx.annotation.NonNull;
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
 
-public class SortTypeUI {
+public class SortTypeUI implements ListDiffInterface<SortTypeUI> {
 
     private final String type;
     private final boolean isSelected;
@@ -20,6 +21,11 @@ public class SortTypeUI {
         return isSelected;
     }
 
+    @Override
+    public boolean theSameAs(SortTypeUI item) {
+        return this.getType().equals(item.getType());
+    }
+
     public String createLogMessage() {
         return "Выбран тип сортировки: " + type;
     }
@@ -29,6 +35,7 @@ public class SortTypeUI {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
@@ -38,6 +45,7 @@ public class SortTypeUI {
         if (isSelected != that.isSelected) {
             return false;
         }
+
         return type.equals(that.type);
     }
 
